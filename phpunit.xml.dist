@@ -17,6 +17,16 @@
         <!-- define your env variables for the test env here -->
     </php>
 
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" />
+
+        <log type="junit" target="build/test/coverage.xml" logIncompleteSkipped="true" />
+        <log type="coverage-html" target="build/test/coverage" lowUpperBound="50" highLowerBound="90" />
+        <log type="testdox-text" target="build/test/testdox.txt" />
+        <log type="testdox-html" target="build/test/testdox.html" />
+        <log type="coverage-clover" target="build/test/clover.xml" />
+    </logging>
+
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests/</directory>

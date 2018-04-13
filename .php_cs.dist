@@ -1,0 +1,32 @@
+<?php
+
+/*
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+    ])
+;
+*/
+
+return PhpCsFixer\Config::create()
+    ->setUsingCache(false)
+    ->setRules(array(
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'strict_comparison' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'list_syntax' => ['syntax' => 'short'],
+        'native_function_invocation' => ['exclude' => []],
+        'no_unreachable_default_argument_value' => true,
+        'braces' => array('allow_single_line_closure' => true),
+        'heredoc_to_nowdoc' => false,
+        'phpdoc_annotation_without_dot' => false,
+        'phpdoc_inline_tag' => false,
+    ))
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__.'/src')
+            ->in(__DIR__.'/tests')
+    );

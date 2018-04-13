@@ -1,0 +1,57 @@
+<?php
+/*
+* This file is part of the Vocento Software.
+*
+* (c) Vocento S.A., <desarrollo.dts@vocento.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+*/
+
+namespace Tests\App\Domain\Model;
+
+use App\Domain\Model\Position;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ *
+ * @covers \App\Domain\Model\Position
+ */
+class PositionTest extends TestCase
+{
+    /**
+     * @test
+     *
+     * @dataProvider getData
+     *
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     */
+    public function shouldCreateValidPositionObject($x, $y, $z): void
+    {
+        $position = new Position($x, $y, $z);
+
+        $this->assertInstanceOf(Position::class, $position);
+        $this->assertEquals($x, $position->x());
+        $this->assertEquals($y, $position->y());
+        $this->assertEquals($z, $position->z());
+    }
+
+    /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        return [
+            'esquina' => [
+                0, 0, 0,
+            ],
+            '3d' => [
+                20, 10, 20,
+            ],
+        ];
+    }
+}
