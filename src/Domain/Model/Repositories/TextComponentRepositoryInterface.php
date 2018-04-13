@@ -9,14 +9,11 @@
 *
 */
 
-namespace App\Domain\Model;
-
+namespace App\Domain\Model\Repositories;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class InvalidStateException extends \Exception
+interface TextComponentRepositoryInterface
 {
-
 }
-

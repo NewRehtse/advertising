@@ -19,6 +19,9 @@ class Text extends Component
     /** @var string */
     private $text;
 
+    /** @var Advertisement */
+    private $advertisement;
+
     /**
      * Text constructor.
      *

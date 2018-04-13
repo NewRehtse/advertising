@@ -1,0 +1,24 @@
+services:
+    sunmedia.view_list_advertisements.service:
+        class: 'App\Application\Service\ViewListOfAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.data_transformer'
+
+    sunmedia.delete_advertisements.service:
+        class: 'App\Application\Service\DeleteAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.data_transformer'
+
+    sunmedia.update_advertisements.service:
+        class: 'App\Application\Service\UpdateAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.data_transformer'
+
+    sunmedia.create_advertisements.service:
+        class: 'App\Application\Service\CreateAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.data_transformer'

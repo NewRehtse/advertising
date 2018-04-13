@@ -1,0 +1,22 @@
+App\Domain\Model\Media:
+    type: entity
+    table: medias
+    repositoryClass: Infrastructure\Persistence\Doctrine\MediaComponentRepository
+    fields:
+        weight:
+            type: integer
+            nullable: true
+        format:
+            type: string
+            length: 5
+        url:
+            type: string
+            length: 255
+
+
+    manyToOne:
+        advertisement:
+            targetEntity: App\Domain\Model\Advertisement
+            inversedBy: medias
+            joinColumn:
+                nullable: true

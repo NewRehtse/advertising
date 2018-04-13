@@ -1,0 +1,20 @@
+App\Domain\Model\Advertisement:
+    type: entity
+    table: advertisements
+    repositoryClass: Infrastructure\Persistence\Doctrine\AdvertisementRepository
+    id:
+        id:
+            type: string
+            generator:
+            strategy: UUID
+    fields:
+        state:
+            type: integer
+
+    oneToMany:
+        medias:
+            targetEntity: App\Domain\Model\Media
+            mappedBy: advertisement
+        texts:
+            targetEntity: App\Domain\Model\Text
+            mappedBy: advertisement

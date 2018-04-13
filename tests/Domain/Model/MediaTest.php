@@ -11,7 +11,6 @@
 
 namespace Tests\App\Domain\Model;
 
-
 use App\Domain\Model\AppId;
 use App\Domain\Model\Media;
 use App\Domain\Model\Position;
@@ -112,4 +111,3 @@ class MediaTest extends TestCase
         ];
     }
 }
-

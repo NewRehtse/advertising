@@ -14,7 +14,6 @@ namespace Tests\App\Domain\Model;
 use App\Domain\Model\AppId;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * @author Antonio José Cerezo Aranda <acerezo@vocento.com>
  */
@@ -37,7 +36,7 @@ class AppIdTest extends TestCase
      *
      * @dataProvider getData
      *
-     * @param $data
+     * @param array $data
      */
     public function shouldCreateValidSharedIdObject($data): void
     {

@@ -16,7 +16,27 @@ namespace App\Domain\Model;
  */
 interface AdvertisingFactoryInterface
 {
-    public function build();
+    /**
+     * @param AppId $id
+     * @param Component[] $components
+     * @param int $status
+     *
+     * @throws \Assert\AssertionFailedException
+     * @throws \App\Domain\Model\Exceptions\InvalidComponentException
+     *
+     * @return Advertisement
+     */
+    public function build(AppId $id, $components, $status = Advertisement::ADV_STATUS_PUBLISHED): Advertisement;
+
+    /**
+     * @param array $data
+     *
+     * @throws \Assert\AssertionFailedException
+     * @throws \App\Domain\Model\Exceptions\InvalidComponentException
+     *
+     * @return Advertisement
+     */
+    public function buildAdvertisementFromArray(array $data): Advertisement;
 
     /**
      * @param AppId  $id

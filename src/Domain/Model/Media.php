@@ -16,6 +16,9 @@ namespace App\Domain\Model;
  */
 abstract class Media extends Component
 {
+    /** @var Advertisement */
+    private $advertisement;
+
     /** @var int */
     private $weight;
 

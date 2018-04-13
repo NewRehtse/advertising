@@ -1,0 +1,22 @@
+App\Domain\Model\Component:
+    type: mappedSuperclass
+    table: texts
+    id:
+        id:
+            type: string
+            generator:
+            strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 100
+        positionX:
+            type: integer
+        positionY:
+            type: integer
+        positionZ:
+            type: integer
+        width:
+            type: integer
+        height:
+            type: integer
