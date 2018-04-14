@@ -7,6 +7,9 @@ namespace App\Domain\Model;
  */
 abstract class Component implements ValidateInterface
 {
+    /** @var Advertisement */
+    private $advertisement;
+
     /** @var AppId */
     private $id;
 
@@ -41,6 +44,26 @@ abstract class Component implements ValidateInterface
     {
         $this->id = $id;
         $this->name = $name;
+    }
+
+    /**
+     * @return Advertisement
+     */
+    public function advertisement(): Advertisement
+    {
+        return $this->advertisement;
+    }
+
+    /**
+     * @param Advertisement $advertisement
+     *
+     * @return $this
+     */
+    public function setAdvertisement(Advertisement $advertisement): self
+    {
+        $this->advertisement = $advertisement;
+
+        return $this;
     }
 
     /**

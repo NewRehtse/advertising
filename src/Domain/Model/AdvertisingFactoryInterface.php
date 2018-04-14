@@ -46,7 +46,7 @@ interface AdvertisingFactoryInterface
     public function buildComponentFromArray(array $data): Component;
 
     /**
-     * @param string|null $id
+     * @param AppId|null $id
      *
      * @return AppId
      */

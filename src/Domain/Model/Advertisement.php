@@ -69,7 +69,7 @@ class Advertisement
     /**
      * @return Component[]
      */
-    public function components(): array
+    public function components()
     {
         return $this->components;
     }
@@ -87,6 +87,7 @@ class Advertisement
             throw new InvalidComponentException('Every component must be valid.');
         }
 
+        $component->setAdvertisement($this);
         $this->components[] = $component;
 
         return $this;

@@ -14,7 +14,7 @@ namespace Tests\App\Domain\Model;
 use App\Domain\Model\Component;
 use App\Domain\Model\Advertisement;
 use App\Domain\Model\AppId;
-use App\Domain\Model\Media;
+use App\Domain\Model\Image;
 use App\Domain\Model\Text;
 use PHPUnit\Framework\TestCase;
 use \PHPUnit\Framework\MockObject\MockObject;
@@ -31,8 +31,8 @@ class AdvertisementTest extends TestCase
      */
     public function shouldCreateValidAdvertisingObject(): void
     {
-        /** @var Media $validComponent */
-        $validComponent = $this->getMediaComponentMock(true);
+        /** @var Image $validComponent */
+        $validComponent = $this->getImageComponentMock(true);
         /** @var Text $validComponent */
         $validTextComponent = $this->getTextComponentMock(true);
 
@@ -46,7 +46,7 @@ class AdvertisementTest extends TestCase
         $this->assertEquals(Advertisement::ADV_STATUS_PUBLISHED, $adv->status()); //initial status
 
         /** @var Component $newComponent */
-        $newComponent = $this->getMediaComponentMockWithId(new AppId());
+        $newComponent = $this->getImageComponentMockWithId(new AppId());
         $adv->addComponent($newComponent);
 
         $adv->removeComponent($newComponent);
@@ -63,14 +63,14 @@ class AdvertisementTest extends TestCase
     public function shouldNotAddNotValidComponent(): void
     {
         /** @var Component $validComponent */
-        $validComponent = $this->getMediaComponentMock(true);
+        $validComponent = $this->getImageComponentMock(true);
         /** @var AppId $id */
         $id = $this->createMock(AppId::class);
 
         $adv = new Advertisement($id, [$validComponent, $validComponent]);
 
         /** @var Component $newComponent */
-        $newComponent = $this->getMediaComponentMockWithId(new AppId(), false);
+        $newComponent = $this->getImageComponentMockWithId(new AppId(), false);
         $adv->addComponent($newComponent);
     }
 
@@ -82,7 +82,7 @@ class AdvertisementTest extends TestCase
     public function shouldNotAddNotValidComponentBecauseIsNotAComponent(): void
     {
         /** @var Component $validComponent */
-        $validComponent = $this->getMediaComponentMock(true);
+        $validComponent = $this->getImageComponentMock(true);
         /** @var AppId $id */
         $id = $this->createMock(AppId::class);
 
@@ -97,8 +97,8 @@ class AdvertisementTest extends TestCase
     public function shouldNotCreateAdvertisingObjectBecauseNotEveryComponentIsValid(): void
     {
         /** @var Component $validComponent */
-        $validComponent = $this->getMediaComponentMock(true);
-        $noValidComponent = $this->getMediaComponentMock(false);
+        $validComponent = $this->getImageComponentMock(true);
+        $noValidComponent = $this->getImageComponentMock(false);
         /** @var AppId $id */
         $id = $this->createMock(AppId::class);
 
@@ -108,9 +108,9 @@ class AdvertisementTest extends TestCase
         new Advertisement($id, $components);
     }
 
-    private function getMediaComponentMockWithId(AppId $id, $valid = true)
+    private function getImageComponentMockWithId(AppId $id, $valid = true)
     {
-        $component = $this->getMediaComponentMock($valid);
+        $component = $this->getImageComponentMock($valid);
 
         $component->method('id')
             ->willReturn($id);
@@ -126,7 +126,7 @@ class AdvertisementTest extends TestCase
     public function shouldNotLetChangeWhenIsPublishing(): void
     {
         /** @var Component $validComponent */
-        $validComponent = $this->getMediaComponentMock(true);
+        $validComponent = $this->getImageComponentMock(true);
 
         /** @var AppId $id */
         $id = $this->createMock(AppId::class);
@@ -149,7 +149,7 @@ class AdvertisementTest extends TestCase
     public function shouldNotLetChangeWhenIsNotValidState(): void
     {
         /** @var Component $validComponent */
-        $validComponent = $this->getMediaComponentMock(true);
+        $validComponent = $this->getImageComponentMock(true);
         /** @var AppId $id */
         $id = $this->createMock(AppId::class);
 
@@ -166,9 +166,9 @@ class AdvertisementTest extends TestCase
      *
      * @return MockObject
      */
-    private function getMediaComponentMock($valid): MockObject
+    private function getImageComponentMock($valid): MockObject
     {
-        $component = $this->getMockBuilder(Media::class)
+        $component = $this->getMockBuilder(Image::class)
             ->disableOriginalConstructor()
             ->getMock();
 

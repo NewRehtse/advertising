@@ -16,9 +16,6 @@ namespace App\Domain\Model;
  */
 class Text extends Component
 {
-    /** @var Advertisement */
-    private $advertisement;
-
     /** @var string */
     private $text;
 
@@ -34,26 +31,6 @@ class Text extends Component
         parent::__construct($id, $name);
 
         $this->text = $text;
-    }
-
-    /**
-     * @return Advertisement
-     */
-    public function advertisement(): Advertisement
-    {
-        return $this->advertisement;
-    }
-
-    /**
-     * @param Advertisement $advertisement
-     *
-     * @return $this
-     */
-    public function setAdvertisement(Advertisement $advertisement): self
-    {
-        $this->advertisement = $advertisement;
-
-        return $this;
     }
 
     /**
