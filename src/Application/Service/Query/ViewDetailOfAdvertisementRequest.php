@@ -11,25 +11,33 @@
 
 namespace App\Application\Service\Query;
 
-use App\Application\Service\BaseAdvertisementService;
 use App\Domain\Model\AppRequest;
 
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class ViewListOfAdvertisementService extends BaseAdvertisementService
+class ViewDetailOfAdvertisementRequest implements AppRequest
 {
-    /**
-     * @inheritdoc
-     */
-    public function execute(AppRequest $request = null)
-    {
-        /** @var ViewListOfAdvertisementRequest $request */
-        $limit = $request->limit();
-        $offset = $request->offset();
+    /** @var string  */
+    private $id;
 
-        return $this->advertisementRepository()->getList($limit, $offset);
+    /**
+     * ViewDetailOfAdvertisementRequest constructor.
+     *
+     * @param string $id
+     */
+    public function __construct(string $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function id(): string
+    {
+        return $this->id;
     }
 }
 

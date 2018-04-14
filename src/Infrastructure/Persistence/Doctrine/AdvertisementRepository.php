@@ -18,6 +18,7 @@ use App\Domain\Model\Exceptions\ElementNotFound;
 use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -41,18 +42,9 @@ class AdvertisementRepository extends ServiceEntityRepository implements Adverti
     /**
      * @inheritdoc
      */
-    public function getById(AppId $id): Advertisement
+    public function getById(AppId $id)
     {
-        $result = $this->createQueryBuilder('q')
-            ->where(['id' => $id])
-            ->getQuery()
-            ->setHydrationMode(Query::HYDRATE_ARRAY)
-            ->getOneOrNullResult();
-        if (null === $result) {
-            throw new ElementNotFound("Article doesn't exist.");
-        }
-
-        return $this->factory->buildAdvertisementFromArray($result);
+        return $this->findOneBy(['id'=> $id]);
     }
 
     /**

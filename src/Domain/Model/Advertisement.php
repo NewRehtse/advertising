@@ -13,6 +13,7 @@ namespace App\Domain\Model;
 
 use App\Domain\Model\Exceptions\InvalidComponentException;
 use App\Domain\Model\Exceptions\InvalidStatusException;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -59,15 +60,15 @@ class Advertisement
     }
 
     /**
-     * @return AppId
+     * @return string
      */
-    public function id(): AppId
+    public function id(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**
-     * @return Component[]
+     * @return Component[]|PersistentCollection
      */
     public function components()
     {

@@ -69,9 +69,9 @@ abstract class Component implements ValidateInterface
     /**
      * @return AppId
      */
-    public function id(): AppId
+    public function id(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**
@@ -83,9 +83,9 @@ abstract class Component implements ValidateInterface
     }
 
     /**
-     * @return Position
+     * @return Position|null
      */
-    public function position(): Position
+    public function position(): ?Position
     {
         return $this->position;
     }
@@ -95,7 +95,7 @@ abstract class Component implements ValidateInterface
      */
     public function positionX(): int
     {
-        return $this->position()->x();
+        return $this->position() ? $this->position()->x(): $this->positionX;
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class Component implements ValidateInterface
      */
     public function positionY(): int
     {
-        return $this->position()->y();
+        return $this->position() ? $this->position()->y(): $this->positionY;
     }
 
     /**
@@ -111,7 +111,7 @@ abstract class Component implements ValidateInterface
      */
     public function positionZ(): int
     {
-        return $this->position()->z();
+        return $this->position() ? $this->position()->z(): $this->positionZ;
     }
 
     /**

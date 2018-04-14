@@ -16,6 +16,7 @@ use App\Domain\Model\Component;
 use App\Domain\Model\Image;
 use App\Domain\Model\Text;
 use App\Domain\Model\Video;
+use Doctrine\ORM\PersistentCollection;
 
 
 /**
@@ -40,29 +41,38 @@ class AdvertisementDataTransformer implements AdvertisementDataTransformerInterf
     {
         $components = [];
 
-        /** @var Component $c */
-        foreach ($this->adv->components() as $c) {
-            if ($c instanceof Image || $c instanceof Video) {
-                $components[] = [
-                    'id' => (string)$c->id(),
-                    'name' => $c->name(),
-                    'position' => [$c->positionX(), $c->positionY(), $c->positionZ()],
-                    'width' => $c->width(),
-                    'height' => $c->height(),
-                    'weight' => $c->weight(),
-                    'format' => $c->format(),
-                    'url' => $c->url(),
-                ];
-            }
-            else if ($c instanceof Text) {
-                $components[] = [
-                    'id' => (string)$c->id(),
-                    'name' => $c->name(),
-                    'position' => [$c->positionX(), $c->positionY(),$c->positionZ()],
-                    'width' => $c->width(),
-                    'height' => $c->height(),
-                    'text' => $c->text(),
-                ];
+        if (\is_array($this->adv->components())) {
+            $arrComponents = $this->adv->components();
+        }
+        else if ($this->adv->components() instanceof PersistentCollection) {
+            $arrComponents = $this->adv->components()->getValues();
+        }
+
+        if (!empty($arrComponents)) {
+            /** @var Component $c */
+            foreach ($this->adv->components() as $c) {
+                if ($c instanceof Image || $c instanceof Video) {
+                    $components[] = [
+                        'id' => (string)$c->id(),
+                        'name' => $c->name(),
+                        'position' => [$c->positionX(), $c->positionY(), $c->positionZ()],
+                        'width' => $c->width(),
+                        'height' => $c->height(),
+                        'weight' => $c->weight(),
+                        'format' => $c->format(),
+                        'url' => $c->url(),
+                    ];
+                }
+                else if ($c instanceof Text) {
+                    $components[] = [
+                        'id' => (string)$c->id(),
+                        'name' => $c->name(),
+                        'position' => [$c->positionX(), $c->positionY(),$c->positionZ()],
+                        'width' => $c->width(),
+                        'height' => $c->height(),
+                        'text' => $c->text(),
+                    ];
+                }
             }
         }
 

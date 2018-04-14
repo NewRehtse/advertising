@@ -11,12 +11,12 @@
 
 namespace App\Controller\Query;
 
-use App\Application\Service\Manage\CreateAdvertisementRequest;
-use App\Application\Service\Manage\CreateAdvertisementService;
 use App\Application\Service\DataTransformer\AdvertisementDataTransformerInterface;
+use App\Application\Service\Query\ViewDetailOfAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Controller\BaseController;
+use App\Application\Service\Query\ViewDetailOfAdvertisementRequest;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,11 +29,15 @@ class AdvertisementController extends BaseController
     /** @var  ViewListOfAdvertisementService */
     private $viewListOfAdvertisementsService;
 
+    /** @var  ViewDetailOfAdvertisementService */
+    private $viewDetailOfAdvertisementsService;
+
     /** @var AdvertisementDataTransformerInterface  */
     private $dataTransformer;
 
     public function __construct(
         ViewListOfAdvertisementService $viewListOfAdvertisementsService,
+        ViewDetailOfAdvertisementService $viewDetailOfAdvertisementsService,
         AdvertisementDataTransformerInterface $dataTransformer,
         Logger $logger = null,
         $sharedMaxAge = 0
@@ -41,10 +45,11 @@ class AdvertisementController extends BaseController
         parent::__construct($logger, $sharedMaxAge);
 
         $this->viewListOfAdvertisementsService = $viewListOfAdvertisementsService;
+        $this->viewDetailOfAdvertisementsService = $viewDetailOfAdvertisementsService;
         $this->dataTransformer = $dataTransformer;
     }
 
-    public function view(Request $request)
+    public function list(Request $request)
     {
         $data = $request->request->all();
 
@@ -63,6 +68,21 @@ class AdvertisementController extends BaseController
 
         return $this->getJsonResponse(
             ['advertisements' => $result],
+            200,
+            []
+        );
+    }
+
+    public function detail(string $id)
+    {
+        $viewRequest = new ViewDetailOfAdvertisementRequest($id);
+
+        $advertisement = $this->viewDetailOfAdvertisementsService->execute($viewRequest);
+
+        $this->dataTransformer->write($advertisement);
+
+        return $this->getJsonResponse(
+            ['advertisement' => $this->dataTransformer->read()],
             200,
             []
         );

@@ -25,10 +25,8 @@ interface AdvertisementRepositoryInterface
      * @param AppId $id
      *
      * @throws ElementNotFound
-     *
-     * @return Advertisement
      */
-    public function getById(AppId $id): Advertisement;
+    public function getById(AppId $id);
 
     /**
      * @param Advertisement $advertisement

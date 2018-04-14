@@ -11,6 +11,12 @@ services:
             - '@sunmedia.persistence.advertisement.repository'
             - '@sunmedia.advertisement.factory'
 
+    sunmedia.view_detail_advertisements.service:
+        class: 'App\Application\Service\Query\ViewDetailOfAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.factory'
+
 #    sunmedia.delete_advertisements.service:
 #        class: 'App\Application\Service\DeleteAdvertisementService'
 #        arguments:

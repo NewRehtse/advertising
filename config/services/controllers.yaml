@@ -4,6 +4,7 @@ services:
         public: true
         arguments:
             - '@sunmedia.view_list_advertisements.service'
+            - '@sunmedia.view_detail_advertisements.service'
             - '@sunmedia.advertisement.data_transformer'
             - ~
             - '0'

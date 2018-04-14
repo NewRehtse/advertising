@@ -18,18 +18,17 @@ use App\Domain\Model\AppRequest;
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class ViewListOfAdvertisementService extends BaseAdvertisementService
+class ViewDetailOfAdvertisementService extends BaseAdvertisementService
 {
     /**
      * @inheritdoc
      */
     public function execute(AppRequest $request = null)
     {
-        /** @var ViewListOfAdvertisementRequest $request */
-        $limit = $request->limit();
-        $offset = $request->offset();
+        /** @var ViewDetailOfAdvertisementRequest $request */
+        $id = $request->id();
 
-        return $this->advertisementRepository()->getList($limit, $offset);
+        return $this->findOrFail($id);
     }
 }
 

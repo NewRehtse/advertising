@@ -5,6 +5,13 @@ sunmedia.adv.list:
     requirements:
         _format: 'json'
 
+sunmedia.adv.detail:
+    path: /advertisement/{id}
+    defaults: { _controller: sunmedia.query.advertisement.controller.v1:detail }
+    methods: ['GET']
+    requirements:
+        _format: 'json'
+
 sunmedia.adv.create:
     path: /advertisement
     defaults: { _controller: sunmedia.manage.advertisement.controller.v1:create }
