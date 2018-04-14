@@ -8,13 +8,10 @@ App\Domain\Model\Advertisement:
             generator:
             strategy: UUID
     fields:
-        state:
+        status:
             type: integer
 
     oneToMany:
-        medias:
-            targetEntity: App\Domain\Model\Media
-            mappedBy: advertisement
-        texts:
-            targetEntity: App\Domain\Model\Text
+        components:
+            targetEntity: App\Domain\Model\Component
             mappedBy: advertisement

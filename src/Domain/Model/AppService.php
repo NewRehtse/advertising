@@ -11,18 +11,17 @@
 
 namespace App\Domain\Model;
 
+
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class Image extends Media
+interface AppService
 {
-    public const VALID_FORMATS = 'jpg|png';
-
     /**
-     * @inheritdoc
+     * @param AppRequest|null $request
+     *
+     * @throws \InvalidArgumentException
      */
-    public function isValid(): bool
-    {
-        return false !== \strpos(self::VALID_FORMATS, $this->format()) && parent::isValid();
-    }
+    public function execute(AppRequest $request = null);
 }
+

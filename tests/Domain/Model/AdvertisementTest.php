@@ -17,6 +17,7 @@ use App\Domain\Model\AppId;
 use App\Domain\Model\Media;
 use App\Domain\Model\Text;
 use PHPUnit\Framework\TestCase;
+use \PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -163,9 +164,9 @@ class AdvertisementTest extends TestCase
     /**
      * @param bool $valid
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject
+     * @return MockObject
      */
-    private function getMediaComponentMock($valid): \PHPUnit\Framework\MockObject\MockObject
+    private function getMediaComponentMock($valid): MockObject
     {
         $component = $this->getMockBuilder(Media::class)
             ->disableOriginalConstructor()
@@ -181,9 +182,9 @@ class AdvertisementTest extends TestCase
     /**
      * @param bool $valid
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject
+     * @return MockObject
      */
-    private function getTextComponentMock($valid): \PHPUnit\Framework\MockObject\MockObject
+    private function getTextComponentMock($valid): MockObject
     {
         $component = $this->getMockBuilder(Text::class)
             ->disableOriginalConstructor()

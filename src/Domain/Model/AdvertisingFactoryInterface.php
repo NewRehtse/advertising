@@ -39,6 +39,20 @@ interface AdvertisingFactoryInterface
     public function buildAdvertisementFromArray(array $data): Advertisement;
 
     /**
+     * @param array $data
+     *
+     * @return Component
+     */
+    public function buildComponentFromArray(array $data): Component;
+
+    /**
+     * @param string|null $id
+     *
+     * @return AppId
+     */
+    public function buildAppId($id = null): AppId;
+
+    /**
      * @param AppId  $id
      * @param string $name
      * @param string $url

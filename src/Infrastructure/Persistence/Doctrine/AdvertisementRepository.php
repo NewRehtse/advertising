@@ -16,14 +16,15 @@ use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\AppId;
 use App\Domain\Model\Exceptions\ElementNotFound;
 use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class AdvertisementRepository extends EntityRepository implements AdvertisementRepositoryInterface
+class AdvertisementRepository extends ServiceEntityRepository implements AdvertisementRepositoryInterface
 {
     /** @var AdvertisingFactoryInterface */
     private $factory;
@@ -33,6 +34,18 @@ class AdvertisementRepository extends EntityRepository implements AdvertisementR
      */
     public function setFactory(AdvertisingFactoryInterface $factory)
     {
+        $this->factory = $factory;
+    }
+
+    /**
+     * AdvertisementRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     * @param AdvertisingFactoryInterface $factory
+     */
+    public function __construct(RegistryInterface $registry, AdvertisingFactoryInterface $factory)
+    {
+        parent::__construct($registry, Advertisement::class);
         $this->factory = $factory;
     }
 
@@ -57,6 +70,9 @@ class AdvertisementRepository extends EntityRepository implements AdvertisementR
         return $this->factory->buildAdvertisementFromArray($result);
     }
 
+    /**
+     * @param Advertisement $advertisement
+     */
     public function create(Advertisement $advertisement): void
     {
         $this->_em->persist($advertisement);
@@ -80,11 +96,14 @@ class AdvertisementRepository extends EntityRepository implements AdvertisementR
         if ($limit > 0) {
             $q->setMaxResults($limit);
         }
-        $result = $q->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        $result = $q->getQuery()->getResult();
+        var_dump($result[0]);die();
         $collection = new ArrayCollection();
         foreach ($result as $row) {
             $collection->set($row['id'], $this->factory->buildAdvertisementFromArray($row));
         }
+        var_dump($collection);
+        die();
 
         return $collection;
     }

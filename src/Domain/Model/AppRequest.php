@@ -11,18 +11,12 @@
 
 namespace App\Domain\Model;
 
+
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class Image extends Media
+interface AppRequest
 {
-    public const VALID_FORMATS = 'jpg|png';
 
-    /**
-     * @inheritdoc
-     */
-    public function isValid(): bool
-    {
-        return false !== \strpos(self::VALID_FORMATS, $this->format()) && parent::isValid();
-    }
 }
+

@@ -16,7 +16,7 @@ namespace App\Domain\Model;
  */
 class Video extends Media
 {
-    const VALID_FORMATS = 'mp4|webm';
+    public const VALID_FORMATS = 'mp4|webm';
 
     /**
      * @return bool

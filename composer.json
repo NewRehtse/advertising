@@ -6,7 +6,8 @@
     "symfony/yaml": "^4",
     "symfony/orm-pack": "^1.0",
     "beberlei/assert": "^2.9",
-    "ramsey/uuid": "^3.7"
+    "ramsey/uuid": "^3.7",
+    "symfony/monolog-bundle": "^3.2"
   },
   "require-dev": {
     "symfony/profiler-pack": "^1.0",

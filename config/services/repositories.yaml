@@ -5,33 +5,31 @@ services:
 #### MYSQL
     # Advertisement
     sunmedia.persistence.advertisement.repository:
-        alias: 'sunmedia.advertisement.doctrine_orm.repository'
+        alias: 'App\Infrastructure\Persistence\Doctrine\AdvertisementRepository'
+        public: true
 
-    sunmedia.advertisement.doctrine_orm.repository:
-        class: 'App\Infrastructure\Persistence\Doctrine\AdvertisementRepository'
+    App\Infrastructure\Persistence\Doctrine\AdvertisementRepository:
         public: false
-        factory: ['@doctrine.orm.entity_manager', getRepository]
-        arguments:
-            - '%sunmedia.advertisement_model.class%'
+        autowire: true
 
     # Text
-    sunmedia.persistence.text.repository:
-        alias: 'sunmedia.text.doctrine_orm.repository'
+#   sunmedia.persistence.text.repository:
+#       alias: 'sunmedia.text.doctrine_orm.repository'
 
-    sunmedia.text.doctrine_orm.repository:
-        class: 'App\Infrastructure\Persistence\Doctrine\TextComponentRepository'
-        public: false
-        factory: ['@doctrine.orm.entity_manager', getRepository]
-        arguments:
-            - '%sunmedia.advertisement_model.class%'
+#   sunmedia.text.doctrine_orm.repository:
+#       class: 'App\Infrastructure\Persistence\Doctrine\TextComponentRepository'
+#       public: false
+#       factory: ['@doctrine.orm.entity_manager', getRepository]
+#       arguments:
+#           - '%sunmedia.advertisement_model.class%'
 
-    # Text
-    sunmedia.persistence.media.repository:
-        alias: 'sunmedia.media.doctrine_orm.repository'
+#   # Text
+#   sunmedia.persistence.media.repository:
+#       alias: 'sunmedia.media.doctrine_orm.repository'
 
-    sunmedia.media.doctrine_orm.repository:
-        class: 'App\Infrastructure\Persistence\Doctrine\MediaComponentRepository'
-        public: false
-        factory: ['@doctrine.orm.entity_manager', getRepository]
-        arguments:
-            - '%sunmedia.advertisement_model.class%'
+#   sunmedia.media.doctrine_orm.repository:
+#       class: 'App\Infrastructure\Persistence\Doctrine\MediaComponentRepository'
+#       public: false
+#       factory: ['@doctrine.orm.entity_manager', getRepository]
+#       arguments:
+#           - '%sunmedia.advertisement_model.class%'

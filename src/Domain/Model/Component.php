@@ -22,9 +22,6 @@ abstract class Component implements ValidateInterface
     /** @var int */
     private $height;
 
-    /** @var Advertisement */
-    private $advertisement;
-
     /** @var int */
     private $positionX;
 
@@ -52,26 +49,6 @@ abstract class Component implements ValidateInterface
     public function id(): AppId
     {
         return $this->id;
-    }
-
-    /**
-     * @return Advertisement
-     */
-    public function advertisement(): Advertisement
-    {
-        return $this->advertisement;
-    }
-
-    /**
-     * @param Advertisement $advertisement
-     *
-     * @return $this
-     */
-    public function setAdvertisement(Advertisement $advertisement): self
-    {
-        $this->advertisement = $advertisement;
-
-        return $this;
     }
 
     /**

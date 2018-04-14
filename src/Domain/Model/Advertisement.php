@@ -19,21 +19,19 @@ use App\Domain\Model\Exceptions\InvalidStatusException;
  */
 class Advertisement
 {
-    const ADV_STATUS_PUBLISHED = 0;
-    const ADV_STATUS_STOPPED = 1;
-    const ADV_STATUS_PUBLISHING = 2;
+    public const ADV_STATUS_PUBLISHED = 0;
+    public const ADV_STATUS_STOPPED = 1;
+    public const ADV_STATUS_PUBLISHING = 2;
 
     /** @var AppId */
     private $id;
 
-    /** @var Media[] */
-    private $medias;
-
-    /** @var Text[] */
-    private $texts;
+    /** @var  Component[] */
+    private $components;
 
     /** @var int */
     private $status;
+
 
     /**
      * Advertisement constructor.
@@ -47,8 +45,7 @@ class Advertisement
     public function __construct(AppId $id, $components, $status = self::ADV_STATUS_PUBLISHED)
     {
         //He asumido que el estado inicial debe ser published, pero eso debería preguntarlo
-        $this->medias = [];
-        $this->texts = [];
+        $this->components = [];
 
         //Todos los componentes deben ser válidos antes de crear el anuncio
         foreach ($components as $component) {
@@ -72,17 +69,9 @@ class Advertisement
     /**
      * @return Component[]
      */
-    public function texts(): array
+    public function components(): array
     {
-        return $this->texts;
-    }
-
-    /**
-     * @return Component[]
-     */
-    public function medias(): array
-    {
-        return $this->medias;
+        return $this->components;
     }
 
     /**
@@ -98,13 +87,7 @@ class Advertisement
             throw new InvalidComponentException('Every component must be valid.');
         }
 
-        if ($component instanceof Media) {
-            $this->medias[] = $component;
-        }
-
-        if ($component instanceof Text) {
-            $this->texts[] = $component;
-        }
+        $this->components[] = $component;
 
         return $this;
     }
@@ -118,19 +101,12 @@ class Advertisement
     {
         $arr = [];
         //TODO Aquí se podría hacer una función para comparar ambos componentes que cumplan la interfaz Comparable
-        foreach ($this->medias() as $c) {
+        foreach ($this->components() as $c) {
             if ($component->id() !== $c->id()) {
                 $arr[] = $c;
             }
         }
-        $this->medias = $arr;
-
-        foreach ($this->texts() as $c) {
-            if ($component->id() !== $c->id()) {
-                $arr[] = $c;
-            }
-        }
-        $this->texts = $arr;
+        $this->components = $arr;
 
         return $this;
     }

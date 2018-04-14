@@ -42,6 +42,26 @@ abstract class Media extends Component
     }
 
     /**
+     * @return Advertisement
+     */
+    public function advertisement(): Advertisement
+    {
+        return $this->advertisement;
+    }
+
+    /**
+     * @param Advertisement $advertisement
+     *
+     * @return $this
+     */
+    public function setAdvertisement(Advertisement $advertisement): self
+    {
+        $this->advertisement = $advertisement;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function weight(): int
