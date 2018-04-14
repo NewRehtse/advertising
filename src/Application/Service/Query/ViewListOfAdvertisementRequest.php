@@ -9,7 +9,7 @@
 *
 */
 
-namespace App\Application\Service;
+namespace App\Application\Service\Query;
 
 use App\Domain\Model\AppRequest;
 

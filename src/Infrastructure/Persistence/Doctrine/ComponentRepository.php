@@ -11,11 +11,11 @@
 
 namespace App\Infrastructure\Persistence\Doctrine;
 
-use App\Domain\Model\Advertisement;
-use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\AppId;
+use App\Domain\Model\Component;
+use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\Exceptions\ElementNotFound;
-use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
+use App\Domain\Model\Repositories\ComponentRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
@@ -24,24 +24,27 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class AdvertisementRepository extends ServiceEntityRepository implements AdvertisementRepositoryInterface
+class ComponentRepository extends ServiceEntityRepository implements ComponentRepositoryInterface
 {
     /** @var AdvertisingFactoryInterface */
     private $factory;
 
     /**
-     * @inheritdoc
+     * AdvertisementRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     * @param AdvertisingFactoryInterface $factory
      */
     public function __construct(RegistryInterface $registry, AdvertisingFactoryInterface $factory)
     {
-        parent::__construct($registry, Advertisement::class);
+        parent::__construct($registry, Component::class);
         $this->factory = $factory;
     }
 
     /**
      * @inheritdoc
      */
-    public function getById(AppId $id): Advertisement
+    public function getById(AppId $id): Component
     {
         $result = $this->createQueryBuilder('q')
             ->where(['id' => $id])
@@ -52,25 +55,20 @@ class AdvertisementRepository extends ServiceEntityRepository implements Adverti
             throw new ElementNotFound("Article doesn't exist.");
         }
 
-        return $this->factory->buildAdvertisementFromArray($result);
+        return $this->factory->buildComponentFromArray($result);
     }
 
     /**
      * @inheritdoc
      */
-    public function create(Advertisement $advertisement): void
+    public function create(Component $advertisement): void
     {
         $this->_em->persist($advertisement);
         $this->_em->flush();
     }
 
     /**
-     * @param int $limit
-     * @param int $offset
-     *
-     * @throws \App\Domain\Model\Exceptions\InvalidComponentException
-     *
-     * @return ArrayCollection|Advertisement[]
+     * @inheritdoc
      */
     public function getList(int $limit = 0, int $offset = 0): ArrayCollection
     {

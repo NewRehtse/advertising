@@ -13,8 +13,9 @@ namespace App\Application\Service\DataTransformer;
 
 use App\Domain\Model\Advertisement;
 use App\Domain\Model\Component;
-use App\Domain\Model\Media;
+use App\Domain\Model\Image;
 use App\Domain\Model\Text;
+use App\Domain\Model\Video;
 
 
 /**
@@ -41,9 +42,9 @@ class AdvertisementDataTransformer implements AdvertisementDataTransformerInterf
 
         /** @var Component $c */
         foreach ($this->adv->components() as $c) {
-            if ($c instanceof Media) {
+            if ($c instanceof Image || $c instanceof Video) {
                 $components[] = [
-                    'id' => $c->id(),
+                    'id' => (string)$c->id(),
                     'name' => $c->name(),
                     'position' => [$c->positionX(), $c->positionY(), $c->positionZ()],
                     'width' => $c->width(),
@@ -55,7 +56,7 @@ class AdvertisementDataTransformer implements AdvertisementDataTransformerInterf
             }
             else if ($c instanceof Text) {
                 $components[] = [
-                    'id' => $c->id(),
+                    'id' => (string)$c->id(),
                     'name' => $c->name(),
                     'position' => [$c->positionX(), $c->positionY(),$c->positionZ()],
                     'width' => $c->width(),
@@ -68,8 +69,11 @@ class AdvertisementDataTransformer implements AdvertisementDataTransformerInterf
         $data = [
             'id' => (string) $this->adv->id(),
             'status' => $this->adv->status(),
-            'components' =>  $components,
         ];
+
+        if (!empty($components)) {
+            $data['components'] = $components;
+        }
 
         return $data;
     }

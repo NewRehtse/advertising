@@ -1,13 +1,13 @@
-sunmedia.create_adv:
+sunmedia.adv.list:
     path: /advertisement
-    defaults: { _controller: sunmedia.advertisement.controller.v1:view }
+    defaults: { _controller: sunmedia.query.advertisement.controller.v1:list }
     methods: ['GET']
     requirements:
         _format: 'json'
 
-#sunmedia.create_adv:
-#    path: /advertisement
-#    defaults: { _controller: sunmedia.advertisement.controller.v1:createAction }
-#    methods: ['POST']
-#    requirements:
-#        _format: 'json'
+sunmedia.adv.create:
+    path: /advertisement
+    defaults: { _controller: sunmedia.manage.advertisement.controller.v1:create }
+    methods: ['POST']
+    requirements:
+        _format: 'json'

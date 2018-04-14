@@ -9,13 +9,14 @@
 *
 */
 
-namespace App\Controller;
+namespace App\Controller\Manage;
 
-use App\Application\Service\CreateAdvertisementRequest;
-use App\Application\Service\CreateAdvertisementService;
+use App\Application\Service\Manage\CreateAdvertisementRequest;
+use App\Application\Service\Manage\CreateAdvertisementService;
 use App\Application\Service\DataTransformer\AdvertisementDataTransformerInterface;
-use App\Application\Service\ViewListOfAdvertisementService;
-use App\Application\Service\ViewListOfAdvertisementRequest;
+use App\Application\Service\Query\ViewListOfAdvertisementService;
+use App\Application\Service\Query\ViewListOfAdvertisementRequest;
+use App\Controller\BaseController;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,9 +26,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AdvertisementController extends BaseController
 {
-    /** @var  ViewListOfAdvertisementService */
-    private $viewListOfAdvertisementsService;
-
     /** @var  CreateAdvertisementService */
     private $createAdvertisementService;
 
@@ -35,7 +33,6 @@ class AdvertisementController extends BaseController
     private $dataTransformer;
 
     public function __construct(
-        ViewListOfAdvertisementService $viewListOfAdvertisementsService,
         CreateAdvertisementService $createAdvertisementService,
         AdvertisementDataTransformerInterface $dataTransformer,
         Logger $logger = null,
@@ -43,36 +40,11 @@ class AdvertisementController extends BaseController
     ) {
         parent::__construct($logger, $sharedMaxAge);
 
-        $this->viewListOfAdvertisementsService = $viewListOfAdvertisementsService;
         $this->dataTransformer = $dataTransformer;
         $this->createAdvertisementService = $createAdvertisementService;
     }
 
-    public function view(Request $request)
-    {
-        $data = $request->request->all();
-
-        $limit = $data['limit'] ?? 10;
-        $offset = $data['offset'] ?? 0;
-
-        $viewRequest = new ViewListOfAdvertisementRequest($limit, $offset);
-
-        $advertisements = $this->viewListOfAdvertisementsService->execute($viewRequest);
-
-        $result = [];
-        foreach ($advertisements as $adv) {
-            $this->dataTransformer->write($adv);
-            $result[] = $this->dataTransformer->read();
-        }
-
-        return $this->getJsonResponse(
-            ['advertisements' => $result],
-            200,
-            []
-        );
-    }
-
-    public function createAction(Request $request)
+    public function create(Request $request)
     {
         try {
             $createRequest = $this->handleCreateRequest($request);
@@ -104,15 +76,11 @@ class AdvertisementController extends BaseController
      */
     private function handleCreateRequest(Request $request): CreateAdvertisementRequest
     {
-        $data = $request->request->all();
-        var_dump($data);die();
-
-        $components = [];
+        $data = \json_decode($request->getContent(), true);
 
         $createRequest = new CreateAdvertisementRequest(
-            $data['id'],
             $data['status'],
-            $components
+            $data['components']
         );
 
         return $createRequest;

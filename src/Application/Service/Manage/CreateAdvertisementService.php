@@ -9,21 +9,24 @@
 *
 */
 
-namespace App\Application\Service;
+namespace App\Application\Service\Manage;
 
 use App\Domain\Model\AdvertisingFactoryInterface;
+use App\Domain\Model\Component;
+use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 use App\Domain\Model\AppRequest;
 use App\Domain\Model\AppService;
-use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
+use App\Domain\Model\Repositories\ComponentRepositoryInterface;
 
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class ViewListOfAdvertisementService implements AppService
+class CreateAdvertisementService implements AppService
 {
     /** @var AdvertisementRepositoryInterface  */
     private $advertisementRepository;
+
     /** @var AdvertisingFactoryInterface  */
     private $factory;
 
@@ -46,20 +49,22 @@ class ViewListOfAdvertisementService implements AppService
      */
     public function execute(AppRequest $request = null)
     {
-        //TODO tengo problemas con el namespace... symfony4.0 too new at this moment for me
-        /**
-        if ($request instanceof ViewListOfAdvertisementRequest) {
-            throw new \InvalidArgumentException('Request is not valid');
+        $id = $this->factory->buildAppId();
+        $components = [];
+        /** @var CreateAdvertisementRequest $request */
+        foreach($request->components() as $component) {
+            /** @var Component $c */
+            $c = $this->factory->buildComponentFromArray($component);
+            if (isset($c)) {
+                $components[] = $c;
+            }
         }
-         */
 
-        /** @var ViewListOfAdvertisementRequest $request */
-        $limit = $request->limit();
-        $offset = $request->offset();
+        $advertisement = $this->factory->build($id, $components, $request->status());
 
-        $count = 0;
-        $total = 0;
-        return $this->advertisementRepository->getList($limit, $offset);
+        $this->advertisementRepository->create($advertisement);
+
+        return $advertisement;
     }
 }
 

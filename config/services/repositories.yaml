@@ -12,24 +12,11 @@ services:
         public: false
         autowire: true
 
-    # Text
-#   sunmedia.persistence.text.repository:
-#       alias: 'sunmedia.text.doctrine_orm.repository'
+    # Components
+    sunmedia.persistence.component.repository:
+        alias: 'App\Infrastructure\Persistence\Doctrine\ComponentRepository'
+        public: true
 
-#   sunmedia.text.doctrine_orm.repository:
-#       class: 'App\Infrastructure\Persistence\Doctrine\TextComponentRepository'
-#       public: false
-#       factory: ['@doctrine.orm.entity_manager', getRepository]
-#       arguments:
-#           - '%sunmedia.advertisement_model.class%'
-
-#   # Text
-#   sunmedia.persistence.media.repository:
-#       alias: 'sunmedia.media.doctrine_orm.repository'
-
-#   sunmedia.media.doctrine_orm.repository:
-#       class: 'App\Infrastructure\Persistence\Doctrine\MediaComponentRepository'
-#       public: false
-#       factory: ['@doctrine.orm.entity_manager', getRepository]
-#       arguments:
-#           - '%sunmedia.advertisement_model.class%'
+    App\Infrastructure\Persistence\Doctrine\ComponentRepository:
+        public: false
+        autowire: true

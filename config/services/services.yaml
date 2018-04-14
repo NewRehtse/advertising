@@ -6,7 +6,7 @@ services:
         class: 'App\Application\Service\AdvertisingFactory'
 
     sunmedia.view_list_advertisements.service:
-        class: 'App\Application\Service\ViewListOfAdvertisementService'
+        class: 'App\Application\Service\Query\ViewListOfAdvertisementService'
         arguments:
             - '@sunmedia.persistence.advertisement.repository'
             - '@sunmedia.advertisement.factory'
@@ -24,7 +24,7 @@ services:
 #            - '@sunmedia.advertisement.data_transformer'
 
     sunmedia.create_advertisements.service:
-        class: 'App\Application\Service\CreateAdvertisementService'
+        class: 'App\Application\Service\Manage\CreateAdvertisementService'
         arguments:
             - '@sunmedia.persistence.advertisement.repository'
             - '@sunmedia.advertisement.factory'

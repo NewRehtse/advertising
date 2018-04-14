@@ -18,8 +18,9 @@ doctrine:
         #url: '%env(resolve:DATABASE_URL)%'
         dbname: sunmedia
         host: database
-        user: root
-        password: root
+        port: 3306
+        user: sunmedia
+        password: sunmedia
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore

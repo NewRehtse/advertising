@@ -9,7 +9,7 @@
 *
 */
 
-namespace App\Application\Service;
+namespace App\Application\Service\Manage;
 
 use App\Domain\Model\AppRequest;
 
@@ -19,9 +19,6 @@ use App\Domain\Model\AppRequest;
  */
 class CreateAdvertisementRequest implements AppRequest
 {
-    /** @var  string */
-    private $id;
-
     /** @var  int */
     private $status;
 
@@ -30,23 +27,14 @@ class CreateAdvertisementRequest implements AppRequest
 
     /**
      * CreateAdvertisementRequest constructor.
-     * @param string $id
+     *
      * @param int $status
      * @param array $components
      */
-    public function __construct($id, $status, array $components)
+    public function __construct($status, array $components)
     {
-        $this->id = $id;
         $this->status = $status;
         $this->components = $components;
-    }
-
-    /**
-     * @return string
-     */
-    public function id(): string
-    {
-        return $this->id;
     }
 
     /**

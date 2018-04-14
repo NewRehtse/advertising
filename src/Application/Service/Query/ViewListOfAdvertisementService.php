@@ -9,18 +9,18 @@
 *
 */
 
-namespace App\Application\Service;
+namespace App\Application\Service\Query;
 
 use App\Domain\Model\AdvertisingFactoryInterface;
-use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 use App\Domain\Model\AppRequest;
 use App\Domain\Model\AppService;
+use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
-class CreateAdvertisementService implements AppService
+class ViewListOfAdvertisementService implements AppService
 {
     /** @var AdvertisementRepositoryInterface  */
     private $advertisementRepository;
@@ -46,25 +46,13 @@ class CreateAdvertisementService implements AppService
      */
     public function execute(AppRequest $request = null)
     {
-        if ($request instanceof CreateAdvertisementRequest) {
-            throw new \InvalidArgumentException('Request is not valid');
-        }
+        /** @var ViewListOfAdvertisementRequest $request */
+        $limit = $request->limit();
+        $offset = $request->offset();
 
-        /** @var CreateAdvertisementRequest $request */
-        $id = $this->factory->buildAppId($request->id());
-        $components = [];
-        foreach($request->components() as $component) {
-            $c = $this->factory->buildComponentFromArray($component);
-            if (isset($c)) {
-                $components[] = $c;
-            }
-        }
-
-        $advertisement = $this->factory->build($id, $components, $request->status());
-
-        $this->advertisementRepository->create($advertisement);
-
-        return $advertisement;
+        $count = 0;
+        $total = 0;
+        return $this->advertisementRepository->getList($limit, $offset);
     }
 }
 

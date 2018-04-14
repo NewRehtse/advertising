@@ -1,9 +1,17 @@
 services:
-    sunmedia.advertisement.controller.v1:
-        class: App\Controller\AdvertisementController
+    sunmedia.query.advertisement.controller.v1:
+        class: App\Controller\Query\AdvertisementController
         public: true
         arguments:
             - '@sunmedia.view_list_advertisements.service'
+            - '@sunmedia.advertisement.data_transformer'
+            - ~
+            - '0'
+
+    sunmedia.manage.advertisement.controller.v1:
+        class: App\Controller\Manage\AdvertisementController
+        public: true
+        arguments:
             - '@sunmedia.create_advertisements.service'
             - '@sunmedia.advertisement.data_transformer'
             - ~

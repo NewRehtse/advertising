@@ -55,16 +55,26 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
     public function buildComponentFromArray(array $data): Component
     {
         $c = null;
-        $componentId = $this->buildAppId($data['id']);
+        $componentId = $this->buildAppId($data['id'] ?? null);
         if (isset($data['text'])) {
             $c = $this->buildText($componentId, $data['name'], $data['text']);
         }
-        if (isset($data['format'], $data['url']) && \strpos(Video::VALID_FORMATS, $data['format']) ) {
+        if (isset($data['format'], $data['url']) && false !== \strpos(Video::VALID_FORMATS, $data['format']) ) {
             $c = $this->buildVideo($componentId, $data['name'], $data['url']);
+            $c->setFormat($data['format']);
+
+            if (isset($data['weight'])) {
+                $c->setWeight($data['weight']);
+            }
         }
 
-        if (isset($data['format'], $data['url']) && \strpos(Image::VALID_FORMATS, $data['format']) ) {
-            $c = $this->buildVideo($componentId, $data['name'], $data['url']);
+        if (isset($data['format'], $data['url']) && false !== \strpos(Image::VALID_FORMATS, $data['format']) ) {
+            $c = $this->buildImage($componentId, $data['name'], $data['url']);
+            $c->setFormat($data['format']);
+
+            if (isset($data['weight'])) {
+                $c->setWeight($data['weight']);
+            }
         }
 
         if (isset($c)) {
@@ -80,7 +90,6 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
                 $c->setHeight($data['height']);
             }
         }
-
         return $c;
     }
 
@@ -89,7 +98,7 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
      */
     public function buildImage(AppId $id, $name, $url): Image
     {
-        // TODO: Implement buildImage() method.
+        return new Image($id, $name, $url);
     }
 
     /**
@@ -105,7 +114,7 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
      */
     public function buildVideo(AppId $id, $name, $url): Video
     {
-        // TODO: Implement buildVideo() method.
+        return new Video($id, $name, $url);
     }
 
     /**
@@ -113,7 +122,7 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
      */
     public function buildText(AppId $id, $name, $text): Text
     {
-        // TODO: Implement buildText() method.
+        return new Text($id, $name, $text);
     }
 
     /**
@@ -121,6 +130,6 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
      */
     public function buildPosition($x, $y, $z): Position
     {
-        // TODO: Implement buildPosition() method.
+        return new Position($x, $y, $z);
     }
 }
