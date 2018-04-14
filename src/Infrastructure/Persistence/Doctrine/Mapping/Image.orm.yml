@@ -1,0 +1,15 @@
+App\Domain\Model\Image:
+    type: entity
+    table: images
+    repositoryClass: Infrastructure\Persistence\Doctrine\MediaComponentRepository
+    fields:
+        weight:
+            type: integer
+            nullable: true
+        format:
+            type: string
+            length: 5
+        url:
+            type: string
+            length: 255
+

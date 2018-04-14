@@ -1,6 +1,15 @@
 App\Domain\Model\Component:
-    type: mappedSuperclass
-    table: texts
+    type: entity
+    inheritanceType: joined
+    table: components
+    repositoryClass: Infrastructure\Persistence\Doctrine\ComponentRepository
+    discriminatorColumn:
+        name: type
+        type: string
+    discriminatorMap:
+        videos: App\Domain\Model\Video
+        images: App\Domain\Model\Image
+        texts: App\Domain\Model\Text
     id:
         id:
             type: string
@@ -20,3 +29,13 @@ App\Domain\Model\Component:
             type: integer
         height:
             type: integer
+
+    manyToOne:
+        advertisement:
+            targetEntity: App\Domain\Model\Advertisement
+            joinColumn:
+                name: advertisment
+                nullable: false
+                referencedColumnName: id
+            cascade: ['persist']
+            referencedColumnName: advertisement_id

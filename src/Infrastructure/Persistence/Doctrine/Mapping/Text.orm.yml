@@ -7,10 +7,3 @@ App\Domain\Model\Text:
             type: string
             length: 140
 
-
-    manyToOne:
-        advertisement:
-            targetEntity: App\Domain\Model\Advertisement
-            inversedBy: texts
-            joinColumn:
-                nullable: true
