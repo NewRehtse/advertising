@@ -1,19 +1,9 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Domain\Model;
 
 use App\Domain\Model\Exceptions\InvalidComponentException;
 use App\Domain\Model\Exceptions\InvalidStatusException;
-use Doctrine\ORM\PersistentCollection;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -27,19 +17,18 @@ class Advertisement
     /** @var AppId */
     private $id;
 
-    /** @var  Component[] */
+    /** @var Component[] */
     private $components;
 
     /** @var int */
     private $status;
 
-
     /**
      * Advertisement constructor.
      *
-     * @param AppId       $id
-     * @param Component[] $components
-     * @param int         $status
+     * @param AppId $id
+     * @param array $components
+     * @param int   $status
      *
      * @throws \App\Domain\Model\Exceptions\InvalidComponentException
      */
@@ -64,11 +53,11 @@ class Advertisement
      */
     public function id(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     /**
-     * @return Component[]|PersistentCollection
+     * @return Component[]
      */
     public function components()
     {

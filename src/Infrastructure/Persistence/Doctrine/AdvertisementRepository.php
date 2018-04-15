@@ -1,24 +1,13 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Infrastructure\Persistence\Doctrine;
 
 use App\Domain\Model\Advertisement;
 use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\AppId;
-use App\Domain\Model\Exceptions\ElementNotFound;
 use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -44,7 +33,7 @@ class AdvertisementRepository extends ServiceEntityRepository implements Adverti
      */
     public function getById(AppId $id)
     {
-        return $this->findOneBy(['id'=> $id]);
+        return $this->findOneBy(['id' => $id]);
     }
 
     /**

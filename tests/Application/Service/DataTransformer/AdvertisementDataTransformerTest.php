@@ -1,22 +1,15 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service\DataTransformer;
-
 
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\DataTransformer\AdvertisementDataTransformer;
 use App\Domain\Model\Advertisement;
 use App\Domain\Model\AppId;
 use PHPUnit\Framework\TestCase;
+use Tests\App\MockedClasses\ComponentNotAdded;
+use Tests\App\MockedClasses\PersistentCollection;
+use \PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -27,7 +20,8 @@ class AdvertisementDataTransformerTest extends TestCase
 {
     /** @var AdvertisementDataTransformer */
     private $dataTransformer;
-    /** @var  AdvertisingFactory */
+
+    /** @var AdvertisingFactory */
     private $factory;
 
     /**
@@ -35,7 +29,7 @@ class AdvertisementDataTransformerTest extends TestCase
      */
     protected function setUp()
     {
-        $this->dataTransformer = new AdvertisementDataTransformer();
+        $this->dataTransformer = new AdvertisementDataTransformer(PersistentCollection::class);
         $this->factory = new AdvertisingFactory();
     }
 
@@ -44,9 +38,9 @@ class AdvertisementDataTransformerTest extends TestCase
      *
      * @dataProvider getAdvArrayData
      *
-     * @param $data
+     * @param array $data
      */
-    public function shouldReturnArrayWithCorrectStructure($data)
+    public function shouldReturnArrayWithCorrectStructure($data): void
     {
         $adv = $this->factory->buildAdvertisementFromArray($data);
         $this->dataTransformer->write($adv);
@@ -56,6 +50,87 @@ class AdvertisementDataTransformerTest extends TestCase
         $this->assertArrayHasKey('id', $arr);
         $this->assertArrayHasKey('status', $arr);
         $this->assertArrayHasKey('components', $arr);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider getAdvArrayDataWithComponentsNotOk
+     *
+     * @param array $data
+     */
+    public function shouldReturnArrayWithCorrectStructureButComponentsNoOk($data): void
+    {
+        $adv = $this->factory->buildAdvertisementFromArray($data);
+        /** @var AppId $id */
+        $id = $this->createMock(AppId::class);
+        $adv->addComponent(new ComponentNotAdded($id, 'name'));
+        $this->dataTransformer->write($adv);
+
+        $arr = $this->dataTransformer->read();
+
+        $this->assertArrayHasKey('id', $arr);
+        $this->assertArrayHasKey('status', $arr);
+        $this->assertArrayHasKey('components', $arr);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider getAdvArrayData
+     *
+     * @param array $data
+     */
+    public function shouldReturnArrayWithCorrectStructureFromDB($data): void
+    {
+        /** @var Advertisement $adv */
+        $adv = $this->getAdvertisementMockForDataTransformer($data);
+        $this->dataTransformer->write($adv);
+
+        $arr = $this->dataTransformer->read();
+
+        $this->assertArrayHasKey('id', $arr);
+        $this->assertArrayHasKey('status', $arr);
+        $this->assertArrayHasKey('components', $arr);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    private function getAdvertisementMockForDataTransformer($data): MockObject
+    {
+        $adv = $this->getMockBuilder(Advertisement::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $adv->method('components')
+            ->willReturn($this->getPersistentCollectionMock($data));
+        $adv->method('id')
+            ->willReturn($data['id']);
+        $adv->method('status')
+            ->willReturn($data['status']);
+
+        return $adv;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return PersistentCollection
+     */
+    private function getPersistentCollectionMock($data): PersistentCollection
+    {
+        $arrComponents = [];
+        foreach ($data['components'] as $c) {
+            $arrComponents[] = $this->factory->buildComponentFromArray($c);
+        }
+
+        $persistentCollection = new PersistentCollection();
+        $persistentCollection->setIterator($arrComponents);
+
+        return $persistentCollection;
     }
 
     /**
@@ -104,7 +179,31 @@ class AdvertisementDataTransformerTest extends TestCase
                 ],
             ],
         ];
+    }
 
+    /**
+     * @return array
+     */
+    public function getAdvArrayDataWithComponentsNotOk(): array
+    {
+        return [
+            'data' => [
+                [
+                    'id' => $this->createMock(AppId::class),
+                    'status' => Advertisement::ADV_STATUS_STOPPED,
+                    'components' => [
+                        [
+                            'text' => 'text',
+                            'name' => 'name',
+                            'positionX' => 30,
+                            'positionY' => 30,
+                            'positionZ' => 30,
+                            'width' => 30,
+                            'height' => 30,
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 }
-

@@ -1,16 +1,6 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service;
-
 
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\BaseAdvertisementService;
@@ -26,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class BaseAdvertisementServiceTest extends TestCase
 {
     /**
-     * @tewst
+     * @test
      */
     public function shouldCreateValidBaseAdvertisementService(): void
     {
@@ -72,7 +62,7 @@ class BaseAdvertisementServiceTest extends TestCase
     }
 
     /**
-     * @param $advRepo
+     * @param AdvertisementRepository $advRepo
      *
      * @return \PHPUnit\Framework\MockObject\MockObject
      */
@@ -105,7 +95,6 @@ class BaseAdvertisementServiceTest extends TestCase
         return $mock;
     }
 
-
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -118,4 +107,3 @@ class BaseAdvertisementServiceTest extends TestCase
         return $advertisementMock;
     }
 }
-

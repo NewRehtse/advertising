@@ -1,25 +1,13 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service\Query;
-
 
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\Query\ViewDetailOfAdvertisementRequest;
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Application\Service\Query\ViewListOfAdvertisementService;
-use App\Domain\Model\Advertisement;
 use App\Infrastructure\Persistence\Doctrine\AdvertisementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -50,7 +38,7 @@ class ViewListOfAdvertisementServiceTest extends TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function shouldGaveExceptionWHenBadRequest(): void
     {
@@ -63,7 +51,6 @@ class ViewListOfAdvertisementServiceTest extends TestCase
 
         $request = new ViewDetailOfAdvertisementRequest('id');
         $viewListOfAdvertisementService->execute($request);
-
     }
 
     /**
@@ -86,7 +73,6 @@ class ViewListOfAdvertisementServiceTest extends TestCase
         return $mock;
     }
 
-
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -99,4 +85,3 @@ class ViewListOfAdvertisementServiceTest extends TestCase
         return $advertisementMock;
     }
 }
-

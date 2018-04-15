@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Domain\Model;
 
@@ -17,9 +8,9 @@ namespace App\Domain\Model;
 interface AdvertisingFactoryInterface
 {
     /**
-     * @param AppId $id
+     * @param AppId       $id
      * @param Component[] $components
-     * @param int $status
+     * @param int         $status
      *
      * @throws \Assert\AssertionFailedException
      * @throws \App\Domain\Model\Exceptions\InvalidComponentException
@@ -43,10 +34,10 @@ interface AdvertisingFactoryInterface
      *
      * @return Component
      */
-    public function buildComponentFromArray(array $data): Component;
+    public function buildComponentFromArray(array $data);
 
     /**
-     * @param AppId|null $id
+     * @param string|null $id
      *
      * @return AppId
      */

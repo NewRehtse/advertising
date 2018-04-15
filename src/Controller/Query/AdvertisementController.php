@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Controller\Query;
 
@@ -20,19 +11,18 @@ use App\Application\Service\Query\ViewDetailOfAdvertisementRequest;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
 class AdvertisementController extends BaseController
 {
-    /** @var  ViewListOfAdvertisementService */
+    /** @var ViewListOfAdvertisementService */
     private $viewListOfAdvertisementsService;
 
-    /** @var  ViewDetailOfAdvertisementService */
+    /** @var ViewDetailOfAdvertisementService */
     private $viewDetailOfAdvertisementsService;
 
-    /** @var AdvertisementDataTransformerInterface  */
+    /** @var AdvertisementDataTransformerInterface */
     private $dataTransformer;
 
     public function __construct(
@@ -49,7 +39,12 @@ class AdvertisementController extends BaseController
         $this->dataTransformer = $dataTransformer;
     }
 
-    public function list(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function list(Request $request): ?\Symfony\Component\HttpFoundation\Response
     {
         try {
             $data = $request->request->all();
@@ -83,7 +78,12 @@ class AdvertisementController extends BaseController
         }
     }
 
-    public function detail(string $id)
+    /**
+     * @param string $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detail(string $id): ?\Symfony\Component\HttpFoundation\Response
     {
         try {
             $viewRequest = new ViewDetailOfAdvertisementRequest($id);
@@ -108,4 +108,3 @@ class AdvertisementController extends BaseController
         }
     }
 }
-

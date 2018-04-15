@@ -1,20 +1,10 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Application\Service;
 
 use App\Domain\Model\Advertisement;
 use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\AppId;
-use App\Domain\Model\Component;
 use App\Domain\Model\Image;
 use App\Domain\Model\Position;
 use App\Domain\Model\Text;
@@ -52,14 +42,14 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
     /**
      * @inheritdoc
      */
-    public function buildComponentFromArray(array $data): Component
+    public function buildComponentFromArray(array $data)
     {
         $c = null;
         $componentId = $this->buildAppId($data['id'] ?? null);
         if (isset($data['text'])) {
             $c = $this->buildText($componentId, $data['name'], $data['text']);
         }
-        if (isset($data['format'], $data['url']) && false !== \strpos(Video::VALID_FORMATS, $data['format']) ) {
+        if (isset($data['format'], $data['url']) && false !== \strpos(Video::VALID_FORMATS, $data['format'])) {
             $c = $this->buildVideo($componentId, $data['name'], $data['url']);
             $c->setFormat($data['format']);
 
@@ -68,7 +58,7 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
             }
         }
 
-        if (isset($data['format'], $data['url']) && false !== \strpos(Image::VALID_FORMATS, $data['format']) ) {
+        if (isset($data['format'], $data['url']) && false !== \strpos(Image::VALID_FORMATS, $data['format'])) {
             $c = $this->buildImage($componentId, $data['name'], $data['url']);
             $c->setFormat($data['format']);
 
@@ -90,6 +80,7 @@ class AdvertisingFactory implements AdvertisingFactoryInterface
                 $c->setHeight($data['height']);
             }
         }
+
         return $c;
     }
 

@@ -1,20 +1,10 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Infrastructure\Persistence\Doctrine;
 
 use App\Domain\Model\AppId;
 use App\Domain\Model\Component;
 use App\Domain\Model\AdvertisingFactoryInterface;
-use App\Domain\Model\Exceptions\ElementNotFound;
 use App\Domain\Model\Repositories\ComponentRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,7 +22,7 @@ class ComponentRepository extends ServiceEntityRepository implements ComponentRe
     /**
      * AdvertisementRepository constructor.
      *
-     * @param RegistryInterface $registry
+     * @param RegistryInterface           $registry
      * @param AdvertisingFactoryInterface $factory
      */
     public function __construct(RegistryInterface $registry, AdvertisingFactoryInterface $factory)
@@ -46,7 +36,7 @@ class ComponentRepository extends ServiceEntityRepository implements ComponentRe
      */
     public function getById(AppId $id)
     {
-        return $this->findOneBy(['id'=> $id]);
+        return $this->findOneBy(['id' => $id]);
     }
 
     /**

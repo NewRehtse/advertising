@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Controller\Manage;
 
@@ -18,19 +9,16 @@ use App\Application\Service\Manage\DeleteAdvertisementRequest;
 use App\Application\Service\Manage\DeleteAdvertisementService;
 use App\Application\Service\Manage\UpdateAdvertisementRequest;
 use App\Application\Service\Manage\UpdateAdvertisementService;
-use App\Application\Service\Query\ViewListOfAdvertisementService;
-use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Controller\BaseController;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
 class AdvertisementController extends BaseController
 {
-    /** @var  CreateAdvertisementService */
+    /** @var CreateAdvertisementService */
     private $createAdvertisementService;
 
     /** @var UpdateAdvertisementService */
@@ -39,9 +27,19 @@ class AdvertisementController extends BaseController
     /** @var DeleteAdvertisementService */
     private $deleteAdvertisementService;
 
-    /** @var AdvertisementDataTransformerInterface  */
+    /** @var AdvertisementDataTransformerInterface */
     private $dataTransformer;
 
+    /**
+     * AdvertisementController constructor.
+     *
+     * @param CreateAdvertisementService            $createAdvertisementService
+     * @param UpdateAdvertisementService            $updateAdvertisementService
+     * @param DeleteAdvertisementService            $deleteAdvertisementService
+     * @param AdvertisementDataTransformerInterface $dataTransformer
+     * @param Logger|null                           $logger
+     * @param int                                   $sharedMaxAge
+     */
     public function __construct(
         CreateAdvertisementService $createAdvertisementService,
         UpdateAdvertisementService $updateAdvertisementService,
@@ -58,7 +56,12 @@ class AdvertisementController extends BaseController
         $this->deleteAdvertisementService = $deleteAdvertisementService;
     }
 
-    public function create(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function create(Request $request): ?\Symfony\Component\HttpFoundation\Response
     {
         try {
             $createRequest = $this->handleCreateRequest($request);
@@ -83,7 +86,13 @@ class AdvertisementController extends BaseController
         }
     }
 
-    public function update($id, Request $request)
+    /**
+     * @param string  $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function update($id, Request $request): ?\Symfony\Component\HttpFoundation\Response
     {
         try {
             $updateRequest = $this->handleUpdateRequest($id, $request);
@@ -108,7 +117,12 @@ class AdvertisementController extends BaseController
         }
     }
 
-    public function delete($id)
+    /**
+     * @param string $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function delete(string $id): ?\Symfony\Component\HttpFoundation\Response
     {
         try {
             $updateRequest = new DeleteAdvertisementRequest($id);
@@ -149,7 +163,7 @@ class AdvertisementController extends BaseController
     }
 
     /**
-     * @param $id
+     * @param string  $id
      * @param Request $request
      *
      * @return UpdateAdvertisementRequest
@@ -167,4 +181,3 @@ class AdvertisementController extends BaseController
         return $updateRequest;
     }
 }
-

@@ -1,16 +1,6 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service;
-
 
 use App\Application\Service\AdvertisingFactory;
 use App\Domain\Model\Advertisement;
@@ -29,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class AdvertisingFactoryTest extends TestCase
 {
-    /** @var  AdvertisingFactory */
+    /** @var AdvertisingFactory */
     private $factory;
 
     /**
@@ -58,14 +48,13 @@ class AdvertisingFactoryTest extends TestCase
      *
      * @dataProvider getAdvArrayData
      *
-     * @param $data
+     * @param array $data
      */
     public function shouldBuildValidAdvertisementFromArray($data)
     {
         $adv = $this->factory->buildAdvertisementFromArray($data);
 
         $this->assertInstanceOf(Advertisement::class, $adv);
-
     }
 
     /**
@@ -92,7 +81,6 @@ class AdvertisingFactoryTest extends TestCase
                 ],
             ],
         ];
-
     }
 
     /**
@@ -100,7 +88,7 @@ class AdvertisingFactoryTest extends TestCase
      *
      * @dataProvider getComponentArrayData
      *
-     * @param $data
+     * @param array $data
      */
     public function shouldBuildValidComponentFromArray($data): void
     {
@@ -124,7 +112,7 @@ class AdvertisingFactoryTest extends TestCase
                     'positionZ' => 30,
                     'width' => 30,
                     'height' => 30,
-                    'class' => Text::class
+                    'class' => Text::class,
                 ],
             ],
             'image' => [
@@ -138,11 +126,10 @@ class AdvertisingFactoryTest extends TestCase
                     'positionZ' => 30,
                     'width' => 30,
                     'height' => 30,
-                    'class' => Image::class
+                    'class' => Image::class,
                 ],
             ],
-            'video' =>
-            [
+            'video' => [
                 [
                     'weight' => 3,
                     'format' => 'mp4',
@@ -153,7 +140,7 @@ class AdvertisingFactoryTest extends TestCase
                     'positionZ' => 30,
                     'width' => 30,
                     'height' => 30,
-                    'class' => Video::class
+                    'class' => Video::class,
                 ],
             ],
         ];
@@ -165,7 +152,7 @@ class AdvertisingFactoryTest extends TestCase
     public function shouldBuildValidImage()
     {
         /** @var AppId $id */
-        $id =$this->getAppIdMock();
+        $id = $this->getAppIdMock();
         $text = $this->factory->buildImage($id, 'name', 'url');
 
         $this->assertInstanceOf(Image::class, $text);
@@ -177,7 +164,7 @@ class AdvertisingFactoryTest extends TestCase
     public function shouldBuildValidAppId(): void
     {
         /** @var AppId $id */
-        $id =$this->getAppIdMock();
+        $id = $this->getAppIdMock();
         $text = $this->factory->buildVideo($id, 'name', 'url');
 
         $this->assertInstanceOf(Video::class, $text);
@@ -189,7 +176,7 @@ class AdvertisingFactoryTest extends TestCase
     public function shouldBuildValidVideo(): void
     {
         /** @var AppId $id */
-        $id =$this->getAppIdMock();
+        $id = $this->getAppIdMock();
         $text = $this->factory->buildVideo($id, 'name', 'url');
 
         $this->assertInstanceOf(Video::class, $text);
@@ -201,7 +188,7 @@ class AdvertisingFactoryTest extends TestCase
     public function shouldBuildValidText(): void
     {
         /** @var AppId $id */
-        $id =$this->getAppIdMock();
+        $id = $this->getAppIdMock();
         $text = $this->factory->buildText($id, 'name', 'text');
 
         $this->assertInstanceOf(Text::class, $text);
@@ -212,7 +199,7 @@ class AdvertisingFactoryTest extends TestCase
      */
     public function shouldBuildValidPosition(): void
     {
-        $position = $this->factory->buildPosition(1,2,3);
+        $position = $this->factory->buildPosition(1, 2, 3);
 
         $this->assertInstanceOf(Position::class, $position);
     }
@@ -243,4 +230,3 @@ class AdvertisingFactoryTest extends TestCase
         return $component;
     }
 }
-

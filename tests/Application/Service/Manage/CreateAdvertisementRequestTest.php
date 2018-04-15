@@ -1,16 +1,6 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service\Manage;
-
 
 use App\Application\Service\Manage\CreateAdvertisementRequest;
 use App\Domain\Model\AppRequest;
@@ -28,7 +18,7 @@ class CreateAdvertisementRequestTest extends TestCase
      *
      * @dataProvider getData
      *
-     * @param $data
+     * @param array $data
      */
     public function shouldConstructValidViewListRequest($data)
     {
@@ -53,6 +43,4 @@ class CreateAdvertisementRequestTest extends TestCase
             ],
         ];
     }
-
 }
-

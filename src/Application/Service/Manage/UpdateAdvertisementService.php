@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Application\Service\Manage;
 
@@ -20,22 +11,22 @@ use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 use App\Domain\Model\Repositories\ComponentRepositoryInterface;
 use App\Domain\Model\Text;
 use App\Domain\Model\Video;
-
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
 class UpdateAdvertisementService extends BaseAdvertisementService
 {
-    /** @var ComponentRepositoryInterface  */
+    /** @var ComponentRepositoryInterface */
     private $componentRepository;
 
     /**
      * UpdateAdvertisementService constructor.
      *
      * @param AdvertisementRepositoryInterface $advertisementRepository
-     * @param ComponentRepositoryInterface $componentRepository
-     * @param AdvertisingFactoryInterface $factory
+     * @param ComponentRepositoryInterface     $componentRepository
+     * @param AdvertisingFactoryInterface      $factory
      */
     public function __construct(
         AdvertisementRepositoryInterface $advertisementRepository,
@@ -60,14 +51,14 @@ class UpdateAdvertisementService extends BaseAdvertisementService
         $advertisement = $this->findOrFail($request->id());
 
         $advertisement->setStatus($request->status());
+        /** @var PersistentCollection $components */
+        $components = $advertisement->components();
 
         $toCreate = [];
-        $toDelete = [];
         foreach ($request->components() as $c) {
             $finded = false;
-            $modified = false;
             /** @var Component $i */
-            foreach ($advertisement->components()->getIterator() as $i) {
+            foreach ($components->getIterator() as $i) {
                 if (isset($c['id']) && $c['id'] === $i->id()) {
                     $finded = true;
                     //Entonces existe y hay que modificarlo
@@ -86,14 +77,13 @@ class UpdateAdvertisementService extends BaseAdvertisementService
                 }
             }
 
-            if (false === $finded && false == isset($c['id'])) {
-
+            if (false === $finded && false === isset($c['id'])) {
                 $toCreate[] = $c;
             }
         }
 
         $elementsToDelete = [];
-        foreach ($advertisement->components()->getIterator() as $i) {
+        foreach ($components->getIterator() as $i) {
             $finded = false;
             foreach ($request->components() as $c) {
                 if (isset($c['id']) && $c['id'] === $i->id()) {
@@ -116,8 +106,6 @@ class UpdateAdvertisementService extends BaseAdvertisementService
 
         $this->advertisementRepository()->persist($advertisement);
 
-
         return $advertisement;
     }
 }
-

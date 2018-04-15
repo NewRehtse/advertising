@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Application\Service;
 
@@ -17,23 +8,22 @@ use App\Domain\Model\AppService;
 use App\Domain\Model\Exceptions\ElementNotFound;
 use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 
-
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
 abstract class BaseAdvertisementService implements AppService
 {
-    /** @var AdvertisementRepositoryInterface  */
+    /** @var AdvertisementRepositoryInterface */
     private $advertisementRepository;
 
-    /** @var AdvertisingFactoryInterface  */
+    /** @var AdvertisingFactoryInterface */
     private $factory;
 
     /**
      * CreateAdvertisementService constructor.
      *
      * @param AdvertisementRepositoryInterface $advertisementRepository
-     * @param AdvertisingFactoryInterface $factory
+     * @param AdvertisingFactoryInterface      $factory
      */
     public function __construct(
         AdvertisementRepositoryInterface $advertisementRepository,
@@ -76,4 +66,3 @@ abstract class BaseAdvertisementService implements AppService
         return $adv;
     }
 }
-

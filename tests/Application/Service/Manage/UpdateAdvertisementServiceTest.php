@@ -1,16 +1,6 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service\Manage;
-
 
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\Manage\UpdateAdvertisementRequest;
@@ -34,7 +24,7 @@ class UpdateAdvertisementServiceTest extends TestCase
      *
      * @dataProvider getUpdateAdvertisementData
      *
-     * @param $data
+     * @param array $data
      */
     public function shouldUpdateAdvertisement($data): void
     {
@@ -160,7 +150,6 @@ class UpdateAdvertisementServiceTest extends TestCase
         return $mock;
     }
 
-
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -213,4 +202,3 @@ class UpdateAdvertisementServiceTest extends TestCase
         return $persistentCollection;
     }
 }
-

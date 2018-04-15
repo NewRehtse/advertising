@@ -1,20 +1,9 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Application\Service\Manage;
 
 use App\Application\Service\BaseAdvertisementService;
-use App\Domain\Model\Component;
 use App\Domain\Model\AppRequest;
-
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -33,12 +22,8 @@ class CreateAdvertisementService extends BaseAdvertisementService
         $id = $this->factory()->buildAppId();
         $components = [];
         /** @var CreateAdvertisementRequest $request */
-        foreach($request->components() as $component) {
-            /** @var Component $c */
-            $c = $this->factory()->buildComponentFromArray($component);
-            if (isset($c)) {
-                $components[] = $c;
-            }
+        foreach ($request->components() as $component) {
+            $components[] = $this->factory()->buildComponentFromArray($component);
         }
 
         $advertisement = $this->factory()->build($id, $components, $request->status());
@@ -48,4 +33,3 @@ class CreateAdvertisementService extends BaseAdvertisementService
         return $advertisement;
     }
 }
-

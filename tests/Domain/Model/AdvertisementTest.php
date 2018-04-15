@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Domain\Model;
 
@@ -17,7 +8,7 @@ use App\Domain\Model\AppId;
 use App\Domain\Model\Image;
 use App\Domain\Model\Text;
 use PHPUnit\Framework\TestCase;
-use \PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>

@@ -1,20 +1,10 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Controller;
 
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use \Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -22,7 +12,7 @@ use \Symfony\Component\HttpFoundation\Response;
 abstract class BaseController
 {
     /** @var int */
-    private $sharedMaxAge = 0;
+    private $sharedMaxAge;
 
     /** * @var Logger */
     private $logger;
@@ -31,7 +21,7 @@ abstract class BaseController
      * BaseController constructor.
      *
      * @param Logger|null $logger
-     * @param int $sharedMaxAge
+     * @param int         $sharedMaxAge
      */
     public function __construct(
         Logger $logger = null,
@@ -51,7 +41,7 @@ abstract class BaseController
 
     /**
      * @param array $data
-     * @param int $status
+     * @param int   $status
      * @param array $headers
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -62,4 +52,3 @@ abstract class BaseController
             ->setSharedMaxAge($this->sharedMaxAge);
     }
 }
-

@@ -1,16 +1,6 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace Tests\App\Application\Service\Manage;
-
 
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\Manage\DeleteAdvertisementRequest;
@@ -18,7 +8,6 @@ use App\Application\Service\Manage\DeleteAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Domain\Model\Advertisement;
 use App\Infrastructure\Persistence\Doctrine\AdvertisementRepository;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,7 +22,8 @@ class DeleteAdvertisementServiceTest extends TestCase
      *
      * @dataProvider getDeleteAdvertisementData
 
-     * @param $data
+     *
+     * @param array $data
      */
     public function shouldDeleteAdvertisement($data): void
     {
@@ -51,7 +41,7 @@ class DeleteAdvertisementServiceTest extends TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function shouldGaveExceptionWHenBadRequest(): void
     {
@@ -107,7 +97,6 @@ class DeleteAdvertisementServiceTest extends TestCase
         return $mock;
     }
 
-
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -119,6 +108,4 @@ class DeleteAdvertisementServiceTest extends TestCase
 
         return $advertisementMock;
     }
-
 }
-

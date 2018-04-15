@@ -1,34 +1,24 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Application\Service\Manage;
 
 use App\Domain\Model\AppRequest;
-
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  */
 class CreateAdvertisementRequest implements AppRequest
 {
-    /** @var  int */
+    /** @var int */
     private $status;
 
-    /** @var  array */
+    /** @var array */
     private $components;
 
     /**
      * CreateAdvertisementRequest constructor.
      *
-     * @param int $status
+     * @param int   $status
      * @param array $components
      */
     public function __construct($status, array $components)
@@ -52,6 +42,4 @@ class CreateAdvertisementRequest implements AppRequest
     {
         return $this->components;
     }
-
 }
-

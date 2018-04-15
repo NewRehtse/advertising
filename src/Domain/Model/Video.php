@@ -1,13 +1,4 @@
 <?php
-/*
-* This file is part of the Vocento Software.
-*
-* (c) Vocento S.A., <desarrollo.dts@vocento.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*
-*/
 
 namespace App\Domain\Model;
 
@@ -108,6 +99,7 @@ class Video extends Component
     public function isValid(): bool
     {
         $valid1 = !empty($this->name()) && !empty($this->url());
+
         return false !== $valid1 && $this->format() && false !== \strpos(self::VALID_FORMATS, $this->format());
     }
 }

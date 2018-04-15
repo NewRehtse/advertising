@@ -1,13 +1,6 @@
 <?php
 
-/*
-return PhpCsFixer\Config::create()
-    ->setRules([
-        '@Symfony' => true,
-        'array_syntax' => ['syntax' => 'short'],
-    ])
-;
-*/
+$header = '';
 
 return PhpCsFixer\Config::create()
     ->setUsingCache(false)
@@ -23,6 +16,7 @@ return PhpCsFixer\Config::create()
         'heredoc_to_nowdoc' => false,
         'phpdoc_annotation_without_dot' => false,
         'phpdoc_inline_tag' => false,
+        'header_comment' => array('header' => $header),
     ))
     ->setRiskyAllowed(true)
     ->setFinder(
