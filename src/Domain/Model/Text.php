@@ -30,15 +30,29 @@ class Text extends Component
     {
         parent::__construct($id, $name);
 
-        $this->text = $text;
+        $this->setText($text);
     }
 
     /**
      * @return string
      */
-    public function text(): string
+    public function text(): ?string
     {
         return $this->text;
+    }
+
+    /**
+     * @param string $text
+     *
+     * @return $this
+     */
+    public function setText(string $text): self
+    {
+        if (!empty($text) && \strlen($text) <= 140) {
+            $this->text = $text;
+        }
+
+        return $this;
     }
 
     /**

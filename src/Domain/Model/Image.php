@@ -63,7 +63,7 @@ class Image extends Component
     /**
      * @return string
      */
-    public function format(): string
+    public function format(): ?string
     {
         return $this->format;
     }
@@ -75,7 +75,9 @@ class Image extends Component
      */
     public function setFormat($format): self
     {
-        $this->format = \strtolower($format);
+        if (false !== \strpos(self::VALID_FORMATS, $format)) {
+            $this->format = \strtolower($format);
+        }
 
         return $this;
     }
@@ -89,11 +91,23 @@ class Image extends Component
     }
 
     /**
+     * @param string $url
+     *
+     * @return Video
+     */
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
      * @inheritdoc
      */
     public function isValid(): bool
     {
         $valid1 = !empty($this->name()) && !empty($this->url());
-        return false !== $valid1 && false !== \strpos(self::VALID_FORMATS, $this->format());
+        return false !== $valid1 && $this->format && false !== \strpos(self::VALID_FORMATS, $this->format());
     }
 }

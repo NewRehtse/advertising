@@ -26,6 +26,10 @@ class CreateAdvertisementService extends BaseAdvertisementService
      */
     public function execute(AppRequest $request = null)
     {
+        if (false === $request instanceof CreateAdvertisementRequest) {
+            throw new \InvalidArgumentException('Request is not valid.');
+        }
+
         $id = $this->factory()->buildAppId();
         $components = [];
         /** @var CreateAdvertisementRequest $request */
@@ -39,7 +43,7 @@ class CreateAdvertisementService extends BaseAdvertisementService
 
         $advertisement = $this->factory()->build($id, $components, $request->status());
 
-        $this->advertisementRepository()->create($advertisement);
+        $this->advertisementRepository()->persist($advertisement);
 
         return $advertisement;
     }

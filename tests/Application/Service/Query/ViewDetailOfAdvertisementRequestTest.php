@@ -9,19 +9,19 @@
 *
 */
 
-namespace Tests\App\Application\Service\Manage;
+namespace Tests\App\Application\Service\Query;
 
 
-use App\Application\Service\Manage\CreateAdvertisementRequest;
+use App\Application\Service\Query\ViewDetailOfAdvertisementRequest;
 use App\Domain\Model\AppRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  *
- * @covers \App\Application\Service\Manage\CreateAdvertisementRequest
+ * @covers \App\Application\Service\Query\ViewDetailOfAdvertisementRequest
  */
-class CreateAdvertisementRequestTest extends TestCase
+class ViewDetailOfAdvertisementRequestTest extends TestCase
 {
     /**
      * @test
@@ -30,29 +30,26 @@ class CreateAdvertisementRequestTest extends TestCase
      *
      * @param $data
      */
-    public function shouldConstructValidViewListRequest($data)
+    public function shouldConstructValidViewListRequest($data): void
     {
-        $request = new CreateAdvertisementRequest($data['status'], $data['components']);
+        $request = new ViewDetailOfAdvertisementRequest($data['id']);
 
         $this->assertInstanceOf(AppRequest::class, $request);
-        $this->assertEquals($data['status'], $request->status());
-        $this->assertEquals($data['components'], $request->components());
+        $this->assertEquals($data['id'], $request->id());
     }
 
     /**
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return [
             [
                 'uno' => [
-                    'status' => 10,
-                    'components' => ['array'],
+                    'id' => 'id',
                 ],
             ],
         ];
     }
-
 }
 

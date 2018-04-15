@@ -18,3 +18,10 @@ sunmedia.adv.create:
     methods: ['POST']
     requirements:
         _format: 'json'
+
+sunmedia.adv.update:
+    path: /advertisement/{id}
+    defaults: { _controller: sunmedia.manage.advertisement.controller.v1:update }
+    methods: ['POST']
+    requirements:
+        _format: 'json'

@@ -45,7 +45,7 @@ class VideoTest extends TestCase
         $this->assertEquals($data['width'], $video->width());
         $this->assertEquals($data['weight'], $video->weight());
         $this->assertEquals($data['position'], $video->position());
-        $this->assertEquals($data['format'], $video->format());
+        $this->assertEquals($data['formatResult'], $video->format());
 
         $this->assertEquals($data['valid'], $video->isValid());
     }
@@ -62,6 +62,7 @@ class VideoTest extends TestCase
                     'name' => 'adv1',
                     'url' => '/www.sunmedia.tv/campaing/adv1.mp4',
                     'format' => 'mp4',
+                    'formatResult' => 'mp4',
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,
@@ -75,6 +76,7 @@ class VideoTest extends TestCase
                     'name' => 'adv1',
                     'url' => '/www.sunmedia.tv/campaing/adv1.mp4',
                     'format' => 'txt',
+                    'formatResult' => null,
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,
@@ -88,6 +90,7 @@ class VideoTest extends TestCase
                     'name' => '',
                     'url' => '/www.sunmedia.tv/campaing/adv1.mp4',
                     'format' => 'webm',
+                    'formatResult' => 'webm',
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,
@@ -101,6 +104,7 @@ class VideoTest extends TestCase
                     'name' => 'adv1',
                     'url' => '',
                     'format' => 'webm',
+                    'formatResult' => 'webm',
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,

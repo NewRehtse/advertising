@@ -51,13 +51,13 @@ class AppId
     }
 
     /**
-     * @param AppId $statsId
+     * @param AppId $id
      *
      * @return bool
      */
-    public function equals(self $statsId): bool
+    public function equals(self $id): bool
     {
-        return $statsId->id() === $this->id();
+        return $id->id() === $this->id();
     }
 
     /**

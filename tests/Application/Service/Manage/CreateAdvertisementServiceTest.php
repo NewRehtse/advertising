@@ -15,9 +15,11 @@ namespace Tests\App\Application\Service\Manage;
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\Manage\CreateAdvertisementRequest;
 use App\Application\Service\Manage\CreateAdvertisementService;
+use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Domain\Model\Advertisement;
 use App\Infrastructure\Persistence\Doctrine\AdvertisementRepository;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Exception\InvalidArgumentException;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
@@ -49,6 +51,24 @@ class CreateAdvertisementServiceTest extends TestCase
     }
 
     /**
+     * @test
+     *
+     * @expectedException InvalidArgumentException
+     */
+    public function shouldGaveExceptionWHenBadRequest(): void
+    {
+        /** @var AdvertisementRepository $advRepo */
+        $advRepo = $this->getAdvertisementRepositoryMock(false);
+        $createAdvertisementService = new CreateAdvertisementService(
+            $advRepo,
+            new AdvertisingFactory()
+        );
+
+        $request = new ViewListOfAdvertisementRequest();
+        $createAdvertisementService->execute($request);
+    }
+
+    /**
      * @return array
      */
     public function getCreateAdvertisementData(): array
@@ -76,19 +96,19 @@ class CreateAdvertisementServiceTest extends TestCase
     }
 
     /**
-     * @param bool $create
+     * @param bool $persist
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getAdvertisementRepositoryMock($create = true): \PHPUnit_Framework_MockObject_MockObject
+    private function getAdvertisementRepositoryMock($persist = true): \PHPUnit_Framework_MockObject_MockObject
     {
         $mock = $this->getMockBuilder(AdvertisementRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        if ($create) {
+        if ($persist) {
             $mock->expects($this->once())
-                ->method('create')
+                ->method('persist')
                 ->willReturn($this->getAdvertisementMock());
         }
 
@@ -101,11 +121,11 @@ class CreateAdvertisementServiceTest extends TestCase
      */
     private function getAdvertisementMock(): \PHPUnit_Framework_MockObject_MockObject
     {
-        $producerMock = $this->getMockBuilder(Advertisement::class)
+        $advertisementMock = $this->getMockBuilder(Advertisement::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        return $producerMock;
+        return $advertisementMock;
     }
 }
 

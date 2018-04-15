@@ -45,7 +45,7 @@ class ImageTest extends TestCase
         $this->assertEquals($data['width'], $image->width());
         $this->assertEquals($data['weight'], $image->weight());
         $this->assertEquals($data['position'], $image->position());
-        $this->assertEquals($data['format'], $image->format());
+        $this->assertEquals($data['formatResult'], $image->format());
 
         $this->assertEquals($data['valid'], $image->isValid());
     }
@@ -62,6 +62,7 @@ class ImageTest extends TestCase
                     'name' => 'adv1',
                     'url' => '/www.sunmedia.tv/campaing/adv1.mp4',
                     'format' => 'jpg',
+                    'formatResult' => 'jpg',
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,
@@ -75,6 +76,7 @@ class ImageTest extends TestCase
                     'name' => 'adv1',
                     'url' => '/www.sunmedia.tv/campaing/adv1.mp4',
                     'format' => 'txt',
+                    'formatResult' => null,
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,
@@ -88,6 +90,7 @@ class ImageTest extends TestCase
                     'name' => '',
                     'url' => '/www.sunmedia.tv/campaing/adv1.mp4',
                     'format' => 'jpg',
+                    'formatResult' => 'jpg',
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,
@@ -101,6 +104,7 @@ class ImageTest extends TestCase
                     'name' => 'adv1',
                     'url' => '',
                     'format' => 'jpg',
+                    'formatResult' => 'jpg',
                     'height' => 300,
                     'width' => 300,
                     'weight' => 33,

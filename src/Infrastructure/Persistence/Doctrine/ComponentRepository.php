@@ -44,26 +44,25 @@ class ComponentRepository extends ServiceEntityRepository implements ComponentRe
     /**
      * @inheritdoc
      */
-    public function getById(AppId $id): Component
+    public function getById(AppId $id)
     {
-        $result = $this->createQueryBuilder('q')
-            ->where(['id' => $id])
-            ->getQuery()
-            ->setHydrationMode(Query::HYDRATE_ARRAY)
-            ->getOneOrNullResult();
-        if (null === $result) {
-            throw new ElementNotFound("Article doesn't exist.");
-        }
-
-        return $this->factory->buildComponentFromArray($result);
+        return $this->findOneBy(['id'=> $id]);
     }
 
     /**
      * @inheritdoc
      */
-    public function create(Component $advertisement): void
+    public function remove(Component $component): void
     {
-        $this->_em->persist($advertisement);
+        $this->_em->remove($component);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function persist(Component $component): void
+    {
+        $this->_em->persist($component);
         $this->_em->flush();
     }
 
@@ -82,7 +81,7 @@ class ComponentRepository extends ServiceEntityRepository implements ComponentRe
         $result = $q->getQuery()->getResult(Query::HYDRATE_ARRAY);
         $collection = new ArrayCollection();
         foreach ($result as $row) {
-            $collection->set($row['id'], $this->factory->buildAdvertisementFromArray($row));
+            $collection->set($row['id'], $this->factory->buildComponentFromArray($row));
         }
 
         return $collection;

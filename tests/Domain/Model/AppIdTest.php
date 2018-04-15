@@ -25,10 +25,10 @@ class AppIdTest extends TestCase
     public function shouldCreateValidAppIdObject(): void
     {
         $id = '93j2093-83j2ojd39802-930ej2j8923';
-        $statsId = new AppId($id);
+        $advId = new AppId($id);
 
-        $this->assertInstanceOf(AppId::class, $statsId);
-        $this->assertEquals($id, $statsId->id());
+        $this->assertInstanceOf(AppId::class, $advId);
+        $this->assertEquals($id, $advId->id());
     }
 
     /**
@@ -40,16 +40,16 @@ class AppIdTest extends TestCase
      */
     public function shouldCreateValidSharedIdObject($data): void
     {
-        $sharedId = new AppId($data['id']);
+        $advId = new AppId($data['id']);
 
-        $this->assertEquals($data['id'], $sharedId->id());
-        $this->assertInstanceOf(AppId::class, $sharedId);
+        $this->assertEquals($data['id'], $advId->id());
+        $this->assertInstanceOf(AppId::class, $advId);
 
-        $this->assertEquals($data['id'], $sharedId->__toString());
-        $this->assertTrue($sharedId->equals($sharedId));
+        $this->assertEquals($data['id'], $advId->__toString());
+        $this->assertTrue($advId->equals($advId));
 
-        $newSiteId = new AppId();
-        $this->assertFalse($newSiteId->equals($sharedId));
+        $newAdvId = new AppId();
+        $this->assertFalse($newAdvId->equals($advId));
     }
 
     /**

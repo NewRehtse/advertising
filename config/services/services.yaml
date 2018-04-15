@@ -23,14 +23,14 @@ services:
 #            - '@sunmedia.persistence.advertisement.repository'
 #            - '@sunmedia.advertisement.data_transformer'
 
-#    sunmedia.update_advertisements.service:
-#        class: 'App\Application\Service\UpdateAdvertisementService'
-#        arguments:
-#            - '@sunmedia.persistence.advertisement.repository'
-#            - '@sunmedia.advertisement.data_transformer'
-
     sunmedia.create_advertisements.service:
         class: 'App\Application\Service\Manage\CreateAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.factory'
+
+    sunmedia.update_advertisements.service:
+        class: 'App\Application\Service\Manage\UpdateAdvertisementService'
         arguments:
             - '@sunmedia.persistence.advertisement.repository'
             - '@sunmedia.advertisement.factory'

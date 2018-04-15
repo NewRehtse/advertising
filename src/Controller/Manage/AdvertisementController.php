@@ -14,6 +14,8 @@ namespace App\Controller\Manage;
 use App\Application\Service\Manage\CreateAdvertisementRequest;
 use App\Application\Service\Manage\CreateAdvertisementService;
 use App\Application\Service\DataTransformer\AdvertisementDataTransformerInterface;
+use App\Application\Service\Manage\UpdateAdvertisementRequest;
+use App\Application\Service\Manage\UpdateAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Controller\BaseController;
@@ -29,11 +31,15 @@ class AdvertisementController extends BaseController
     /** @var  CreateAdvertisementService */
     private $createAdvertisementService;
 
+    /** @var UpdateAdvertisementService */
+    private $updateAdvertisementService;
+
     /** @var AdvertisementDataTransformerInterface  */
     private $dataTransformer;
 
     public function __construct(
         CreateAdvertisementService $createAdvertisementService,
+        UpdateAdvertisementService $updateAdvertisementService,
         AdvertisementDataTransformerInterface $dataTransformer,
         Logger $logger = null,
         $sharedMaxAge = 0
@@ -42,6 +48,7 @@ class AdvertisementController extends BaseController
 
         $this->dataTransformer = $dataTransformer;
         $this->createAdvertisementService = $createAdvertisementService;
+        $this->updateAdvertisementService = $updateAdvertisementService;
     }
 
     public function create(Request $request)
@@ -54,8 +61,33 @@ class AdvertisementController extends BaseController
             $this->dataTransformer->write($adv);
 
             return $this->getJsonResponse(
-                ['site' => $this->dataTransformer->read(true)],
+                ['advertisement' => $this->dataTransformer->read(true)],
                 201,
+                []
+            );
+        } catch (\Exception $exception) {
+            return $this->getJsonResponse(
+                [
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                ],
+                409
+            );
+        }
+    }
+
+    public function update($id, Request $request)
+    {
+        try {
+            $updateRequest = $this->handleUpdateRequest($id, $request);
+
+            $adv = $this->updateAdvertisementService->execute($updateRequest);
+
+            $this->dataTransformer->write($adv);
+
+            return $this->getJsonResponse(
+                ['advertisement' => $this->dataTransformer->read(true)],
+                200,
                 []
             );
         } catch (\Exception $exception) {
@@ -84,6 +116,25 @@ class AdvertisementController extends BaseController
         );
 
         return $createRequest;
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     *
+     * @return UpdateAdvertisementRequest
+     */
+    private function handleUpdateRequest($id, Request $request): UpdateAdvertisementRequest
+    {
+        $data = \json_decode($request->getContent(), true);
+
+        $updateRequest = new UpdateAdvertisementRequest(
+            $id,
+            $data['components'],
+            $data['status']
+        );
+
+        return $updateRequest;
     }
 }
 

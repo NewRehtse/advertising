@@ -37,5 +37,5 @@ App\Domain\Model\Component:
                 name: advertisment
                 nullable: false
                 referencedColumnName: id
-            cascade: ['persist']
+            cascade: ['all']
             referencedColumnName: advertisement_id

@@ -25,6 +25,10 @@ class ViewListOfAdvertisementService extends BaseAdvertisementService
      */
     public function execute(AppRequest $request = null)
     {
+        if (false === $request instanceof ViewListOfAdvertisementRequest) {
+            throw new \InvalidArgumentException('Request is not valid.');
+        }
+
         /** @var ViewListOfAdvertisementRequest $request */
         $limit = $request->limit();
         $offset = $request->offset();

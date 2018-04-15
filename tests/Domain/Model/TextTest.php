@@ -42,7 +42,7 @@ class TextTest extends TestCase
 
         $this->assertEquals($data['id'], $text->id());
         $this->assertEquals($data['name'], $text->name());
-        $this->assertEquals($data['text'], $text->text());
+        $this->assertEquals($data['textResult'], $text->text());
         $this->assertEquals($data['width'], $text->width());
         $this->assertEquals($data['height'], $text->height());
         $this->assertEquals($data['advertisement'], $text->advertisement());
@@ -62,6 +62,7 @@ class TextTest extends TestCase
                     'advertisement' => $this->createMock(Advertisement::class),
                     'name' => 'name',
                     'text' => 'i am a valid advertisment',
+                    'textResult' => 'i am a valid advertisment',
                     'position' => $this->createMock(Position::class),
                     'width' => 300,
                     'height' => 300,
@@ -74,6 +75,7 @@ class TextTest extends TestCase
                     'advertisement' => $this->createMock(Advertisement::class),
                     'name' => 'name',
                     'text' => 'i am not a valid advertisment because i am too large to be in an add i will get bored every user so nobody will buy what i am publishing and my publisher will be really really sad... and lorum ipsum',
+                    'textResult' => null,
                     'position' => $this->createMock(Position::class),
                     'width' => 300,
                     'height' => 300,
@@ -86,6 +88,7 @@ class TextTest extends TestCase
                     'advertisement' => $this->createMock(Advertisement::class),
                     'name' => 'name',
                     'text' => '',
+                    'textResult' => null,
                     'position' => $this->createMock(Position::class),
                     'width' => 300,
                     'height' => 300,
@@ -98,6 +101,7 @@ class TextTest extends TestCase
                     'advertisement' => $this->createMock(Advertisement::class),
                     'name' => '',
                     'text' => 'i am not a valid advertisment',
+                    'textResult' => 'i am not a valid advertisment',
                     'position' => $this->createMock(Position::class),
                     'width' => 300,
                     'height' => 300,

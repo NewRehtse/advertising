@@ -28,10 +28,10 @@ abstract class BaseController
     private $logger;
 
     /**
-     * StatsController constructor.
+     * BaseController constructor.
      *
-     * @param Logger $logger
-     * @param int    $sharedMaxAge
+     * @param Logger|null $logger
+     * @param int $sharedMaxAge
      */
     public function __construct(
         Logger $logger = null,

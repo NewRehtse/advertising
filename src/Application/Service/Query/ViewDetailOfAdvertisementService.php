@@ -25,6 +25,10 @@ class ViewDetailOfAdvertisementService extends BaseAdvertisementService
      */
     public function execute(AppRequest $request = null)
     {
+        if (false === $request instanceof ViewDetailOfAdvertisementRequest) {
+            throw new \InvalidArgumentException('Request is not valid.');
+        }
+
         /** @var ViewDetailOfAdvertisementRequest $request */
         $id = $request->id();
 

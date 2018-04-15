@@ -14,20 +14,19 @@ namespace Tests\App\Application\Service\Query;
 
 use App\Application\Service\AdvertisingFactory;
 use App\Application\Service\Query\ViewDetailOfAdvertisementRequest;
+use App\Application\Service\Query\ViewDetailOfAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
-use App\Application\Service\Query\ViewListOfAdvertisementService;
 use App\Domain\Model\Advertisement;
 use App\Infrastructure\Persistence\Doctrine\AdvertisementRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>
  *
- * @covers \App\Application\Service\Query\ViewListOfAdvertisementService
+ * @covers \App\Application\Service\Query\ViewDetailOfAdvertisementService
  */
-class ViewListOfAdvertisementServiceTest extends TestCase
+class ViewDetailOfAdvertisementServiceTest extends TestCase
 {
     /**
      * @tests
@@ -36,15 +35,15 @@ class ViewListOfAdvertisementServiceTest extends TestCase
     {
         /** @var AdvertisementRepository $advRepo */
         $advRepo = $this->getAdvertisementRepositoryMock(true);
-        $viewListOfAdvertisementService = new ViewListOfAdvertisementService(
+        $viewListOfAdvertisementService = new ViewDetailOfAdvertisementService(
             $advRepo,
             new AdvertisingFactory()
         );
 
-        $request = new ViewListOfAdvertisementRequest();
+        $request = new ViewDetailOfAdvertisementRequest('id');
         $advs = $viewListOfAdvertisementService->execute($request);
 
-        $this->assertInstanceOf(ArrayCollection::class, $advs);
+        $this->assertInstanceOf(Advertisement::class, $advs);
     }
 
     /**
@@ -56,31 +55,31 @@ class ViewListOfAdvertisementServiceTest extends TestCase
     {
         /** @var AdvertisementRepository $advRepo */
         $advRepo = $this->getAdvertisementRepositoryMock(false);
-        $viewListOfAdvertisementService = new ViewListOfAdvertisementService(
+        $viewListOfAdvertisementService = new ViewDetailOfAdvertisementService(
             $advRepo,
             new AdvertisingFactory()
         );
 
-        $request = new ViewDetailOfAdvertisementRequest('id');
+        $request = new ViewListOfAdvertisementRequest();
         $viewListOfAdvertisementService->execute($request);
 
     }
 
     /**
-     * @param bool $getList
+     * @param bool $getById
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getAdvertisementRepositoryMock($getList = true): \PHPUnit_Framework_MockObject_MockObject
+    private function getAdvertisementRepositoryMock($getById = true): \PHPUnit_Framework_MockObject_MockObject
     {
         $mock = $this->getMockBuilder(AdvertisementRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        if ($getList) {
+        if ($getById) {
             $mock->expects($this->once())
-                ->method('getList')
-                ->willReturn($this->getArrayCollectionMock());
+                ->method('getById')
+                ->willReturn($this->getAdvertisementMock());
         }
 
         return $mock;
@@ -90,9 +89,9 @@ class ViewListOfAdvertisementServiceTest extends TestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getArrayCollectionMock(): \PHPUnit_Framework_MockObject_MockObject
+    private function getAdvertisementMock(): \PHPUnit_Framework_MockObject_MockObject
     {
-        $advertisementMock = $this->getMockBuilder(ArrayCollection::class)
+        $advertisementMock = $this->getMockBuilder(Advertisement::class)
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -31,7 +31,12 @@ interface AdvertisementRepositoryInterface
     /**
      * @param Advertisement $advertisement
      */
-    public function create(Advertisement $advertisement): void;
+    public function persist(Advertisement $advertisement): void;
+
+    /**
+     * @param Advertisement $advertisement
+     */
+    public function remove(Advertisement $advertisement): void;
 
     /**
      * @param int $limit

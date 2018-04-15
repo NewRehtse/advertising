@@ -26,14 +26,19 @@ interface ComponentRepositoryInterface
      *
      * @throws ElementNotFound
      *
-     * @return Component
+     * @return object
      */
-    public function getById(AppId $id): Component;
+    public function getById(AppId $id);
+
+    /**
+     * @param Component $component
+     */
+    public function remove(Component $component): void;
 
     /**
      * @param Component $advertisement
      */
-    public function create(Component $advertisement): void;
+    public function persist(Component $advertisement): void;
 
     /**
      * @param int $limit

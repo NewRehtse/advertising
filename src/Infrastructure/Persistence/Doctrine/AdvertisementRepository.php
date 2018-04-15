@@ -50,10 +50,18 @@ class AdvertisementRepository extends ServiceEntityRepository implements Adverti
     /**
      * @inheritdoc
      */
-    public function create(Advertisement $advertisement): void
+    public function persist(Advertisement $advertisement): void
     {
         $this->_em->persist($advertisement);
         $this->_em->flush();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function remove(Advertisement $advertisement): void
+    {
+        $this->_em->remove($advertisement);
     }
 
     /**

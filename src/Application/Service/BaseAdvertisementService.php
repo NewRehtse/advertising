@@ -63,13 +63,13 @@ abstract class BaseAdvertisementService implements AppService
      *
      * @throws ElementNotFound
      *
-     * @return \App\Domain\Model\Advertisement
+     * @return object
      */
-    protected function findOrFail(string $id)
+    protected function findOrFail(string $id): object
     {
         $adv = $this->advertisementRepository()->getById($this->factory()->buildAppId($id));
         if (!$adv) {
-            throw new ElementNotFound();
+            throw new ElementNotFound('Advertisement not found');
         }
 
         return $adv;

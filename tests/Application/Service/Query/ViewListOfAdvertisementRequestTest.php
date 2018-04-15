@@ -13,6 +13,7 @@ namespace Tests\App\Application\Service\Query;
 
 
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
+use App\Domain\Model\AppRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,6 +34,7 @@ class ViewListOfAdvertisementRequestTest extends TestCase
     {
         $request = new ViewListOfAdvertisementRequest($data['limit'], $data['offset']);
 
+        $this->assertInstanceOf(AppRequest::class, $request);
         $this->assertEquals($data['limit'], $request->limit());
         $this->assertEquals($data['offset'], $request->offset());
     }
