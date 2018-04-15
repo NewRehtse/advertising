@@ -62,6 +62,7 @@ class AdvertisementRepository extends ServiceEntityRepository implements Adverti
     public function remove(Advertisement $advertisement): void
     {
         $this->_em->remove($advertisement);
+        $this->_em->flush();
     }
 
     /**

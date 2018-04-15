@@ -25,3 +25,10 @@ sunmedia.adv.update:
     methods: ['POST']
     requirements:
         _format: 'json'
+
+sunmedia.adv.delete:
+    path: /advertisement/{id}
+    defaults: { _controller: sunmedia.manage.advertisement.controller.v1:delete }
+    methods: ['DELETE']
+    requirements:
+        _format: 'json'

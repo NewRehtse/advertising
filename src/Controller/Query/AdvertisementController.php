@@ -51,41 +51,61 @@ class AdvertisementController extends BaseController
 
     public function list(Request $request)
     {
-        $data = $request->request->all();
+        try {
+            $data = $request->request->all();
 
-        $limit = $data['limit'] ?? 10;
-        $offset = $data['offset'] ?? 0;
+            $limit = $data['limit'] ?? 10;
+            $offset = $data['offset'] ?? 0;
 
-        $viewRequest = new ViewListOfAdvertisementRequest($limit, $offset);
+            $viewRequest = new ViewListOfAdvertisementRequest($limit, $offset);
 
-        $advertisements = $this->viewListOfAdvertisementsService->execute($viewRequest);
+            $advertisements = $this->viewListOfAdvertisementsService->execute($viewRequest);
 
-        $result = [];
-        foreach ($advertisements as $adv) {
-            $this->dataTransformer->write($adv);
-            $result[] = $this->dataTransformer->read();
+            $result = [];
+            foreach ($advertisements as $adv) {
+                $this->dataTransformer->write($adv);
+                $result[] = $this->dataTransformer->read();
+            }
+
+            return $this->getJsonResponse(
+                ['advertisements' => $result],
+                200,
+                []
+            );
+        } catch (\Exception $exception) {
+            return $this->getJsonResponse(
+                [
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                ],
+                409
+            );
         }
-
-        return $this->getJsonResponse(
-            ['advertisements' => $result],
-            200,
-            []
-        );
     }
 
     public function detail(string $id)
     {
-        $viewRequest = new ViewDetailOfAdvertisementRequest($id);
+        try {
+            $viewRequest = new ViewDetailOfAdvertisementRequest($id);
 
-        $advertisement = $this->viewDetailOfAdvertisementsService->execute($viewRequest);
+            $advertisement = $this->viewDetailOfAdvertisementsService->execute($viewRequest);
 
-        $this->dataTransformer->write($advertisement);
+            $this->dataTransformer->write($advertisement);
 
-        return $this->getJsonResponse(
-            ['advertisement' => $this->dataTransformer->read()],
-            200,
-            []
-        );
+            return $this->getJsonResponse(
+                ['advertisement' => $this->dataTransformer->read()],
+                200,
+                []
+            );
+        } catch (\Exception $exception) {
+            return $this->getJsonResponse(
+                [
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                ],
+                409
+            );
+        }
     }
 }
 

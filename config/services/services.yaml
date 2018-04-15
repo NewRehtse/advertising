@@ -17,12 +17,6 @@ services:
             - '@sunmedia.persistence.advertisement.repository'
             - '@sunmedia.advertisement.factory'
 
-#    sunmedia.delete_advertisements.service:
-#        class: 'App\Application\Service\DeleteAdvertisementService'
-#        arguments:
-#            - '@sunmedia.persistence.advertisement.repository'
-#            - '@sunmedia.advertisement.data_transformer'
-
     sunmedia.create_advertisements.service:
         class: 'App\Application\Service\Manage\CreateAdvertisementService'
         arguments:
@@ -31,6 +25,12 @@ services:
 
     sunmedia.update_advertisements.service:
         class: 'App\Application\Service\Manage\UpdateAdvertisementService'
+        arguments:
+            - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.advertisement.factory'
+
+    sunmedia.delete_advertisements.service:
+        class: 'App\Application\Service\Manage\DeleteAdvertisementService'
         arguments:
             - '@sunmedia.persistence.advertisement.repository'
             - '@sunmedia.advertisement.factory'

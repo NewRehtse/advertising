@@ -14,6 +14,8 @@ namespace App\Controller\Manage;
 use App\Application\Service\Manage\CreateAdvertisementRequest;
 use App\Application\Service\Manage\CreateAdvertisementService;
 use App\Application\Service\DataTransformer\AdvertisementDataTransformerInterface;
+use App\Application\Service\Manage\DeleteAdvertisementRequest;
+use App\Application\Service\Manage\DeleteAdvertisementService;
 use App\Application\Service\Manage\UpdateAdvertisementRequest;
 use App\Application\Service\Manage\UpdateAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementService;
@@ -34,12 +36,16 @@ class AdvertisementController extends BaseController
     /** @var UpdateAdvertisementService */
     private $updateAdvertisementService;
 
+    /** @var DeleteAdvertisementService */
+    private $deleteAdvertisementService;
+
     /** @var AdvertisementDataTransformerInterface  */
     private $dataTransformer;
 
     public function __construct(
         CreateAdvertisementService $createAdvertisementService,
         UpdateAdvertisementService $updateAdvertisementService,
+        DeleteAdvertisementService $deleteAdvertisementService,
         AdvertisementDataTransformerInterface $dataTransformer,
         Logger $logger = null,
         $sharedMaxAge = 0
@@ -49,6 +55,7 @@ class AdvertisementController extends BaseController
         $this->dataTransformer = $dataTransformer;
         $this->createAdvertisementService = $createAdvertisementService;
         $this->updateAdvertisementService = $updateAdvertisementService;
+        $this->deleteAdvertisementService = $deleteAdvertisementService;
     }
 
     public function create(Request $request)
@@ -88,6 +95,29 @@ class AdvertisementController extends BaseController
             return $this->getJsonResponse(
                 ['advertisement' => $this->dataTransformer->read(true)],
                 200,
+                []
+            );
+        } catch (\Exception $exception) {
+            return $this->getJsonResponse(
+                [
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                ],
+                409
+            );
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $updateRequest = new DeleteAdvertisementRequest($id);
+
+            $this->deleteAdvertisementService->execute($updateRequest);
+
+            return $this->getJsonResponse(
+                [],
+                204,
                 []
             );
         } catch (\Exception $exception) {

@@ -15,6 +15,7 @@ services:
         arguments:
             - '@sunmedia.create_advertisements.service'
             - '@sunmedia.update_advertisements.service'
+            - '@sunmedia.delete_advertisements.service'
             - '@sunmedia.advertisement.data_transformer'
             - ~
             - '0'

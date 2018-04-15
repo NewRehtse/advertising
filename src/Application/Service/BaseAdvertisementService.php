@@ -11,6 +11,7 @@
 
 namespace App\Application\Service;
 
+use App\Domain\Model\Advertisement;
 use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\AppService;
 use App\Domain\Model\Exceptions\ElementNotFound;
@@ -63,9 +64,9 @@ abstract class BaseAdvertisementService implements AppService
      *
      * @throws ElementNotFound
      *
-     * @return object
+     * @return Advertisement
      */
-    protected function findOrFail(string $id): object
+    protected function findOrFail(string $id): Advertisement
     {
         $adv = $this->advertisementRepository()->getById($this->factory()->buildAppId($id));
         if (!$adv) {
