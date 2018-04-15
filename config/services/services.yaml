@@ -27,6 +27,7 @@ services:
         class: 'App\Application\Service\Manage\UpdateAdvertisementService'
         arguments:
             - '@sunmedia.persistence.advertisement.repository'
+            - '@sunmedia.persistence.component.repository'
             - '@sunmedia.advertisement.factory'
 
     sunmedia.delete_advertisements.service:

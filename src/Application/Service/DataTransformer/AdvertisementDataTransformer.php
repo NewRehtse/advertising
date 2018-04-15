@@ -42,37 +42,14 @@ class AdvertisementDataTransformer implements AdvertisementDataTransformerInterf
         $components = [];
 
         if (\is_array($this->adv->components())) {
-            $arrComponents = $this->adv->components();
-        }
-        else if ($this->adv->components() instanceof PersistentCollection) {
-            $arrComponents = $this->adv->components()->getValues();
-        }
-
-        if (!empty($arrComponents)) {
             /** @var Component $c */
             foreach ($this->adv->components() as $c) {
-                if ($c instanceof Image || $c instanceof Video) {
-                    $components[] = [
-                        'id' => (string)$c->id(),
-                        'name' => $c->name(),
-                        'position' => [$c->positionX(), $c->positionY(), $c->positionZ()],
-                        'width' => $c->width(),
-                        'height' => $c->height(),
-                        'weight' => $c->weight(),
-                        'format' => $c->format(),
-                        'url' => $c->url(),
-                    ];
-                }
-                else if ($c instanceof Text) {
-                    $components[] = [
-                        'id' => (string)$c->id(),
-                        'name' => $c->name(),
-                        'position' => [$c->positionX(), $c->positionY(),$c->positionZ()],
-                        'width' => $c->width(),
-                        'height' => $c->height(),
-                        'text' => $c->text(),
-                    ];
-                }
+                $components[] = $this->deserializeComponent($c);
+            }
+        }
+        else if ($this->adv->components() instanceof PersistentCollection) {
+            foreach ($this->adv->components()->getIterator() as $c) {
+                $components[] = $this->deserializeComponent($c);
             }
         }
 
@@ -86,6 +63,38 @@ class AdvertisementDataTransformer implements AdvertisementDataTransformerInterf
         }
 
         return $data;
+    }
+
+    /**
+     * @param Component $c
+     *
+     * @return array
+     */
+    private function deserializeComponent(Component $c): array
+    {
+        if ($c instanceof Image || $c instanceof Video) {
+            $component = [
+                'id' => (string)$c->id(),
+                'name' => $c->name(),
+                'position' => [$c->positionX(), $c->positionY(), $c->positionZ()],
+                'width' => $c->width(),
+                'height' => $c->height(),
+                'weight' => $c->weight(),
+                'format' => $c->format(),
+                'url' => $c->url(),
+            ];
+        }
+        else if ($c instanceof Text) {
+            $component = [
+                'id' => (string)$c->id(),
+                'name' => $c->name(),
+                'position' => [$c->positionX(), $c->positionY(),$c->positionZ()],
+                'width' => $c->width(),
+                'height' => $c->height(),
+                'text' => $c->text(),
+            ];
+        }
+        return $component;
     }
 }
 

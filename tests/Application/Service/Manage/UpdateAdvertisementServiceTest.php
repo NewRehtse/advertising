@@ -18,6 +18,7 @@ use App\Application\Service\Manage\UpdateAdvertisementService;
 use App\Application\Service\Query\ViewListOfAdvertisementRequest;
 use App\Domain\Model\Advertisement;
 use App\Infrastructure\Persistence\Doctrine\AdvertisementRepository;
+use App\Infrastructure\Persistence\Doctrine\ComponentRepository;
 use PHPUnit\Framework\TestCase;
 use Tests\App\MockedClasses\PersistentCollection;
 
@@ -39,8 +40,11 @@ class UpdateAdvertisementServiceTest extends TestCase
     {
         /** @var AdvertisementRepository $advRepo */
         $advRepo = $this->getAdvertisementRepositoryMock(true, true);
+        /** @var ComponentRepository $componentRepo */
+        $componentRepo = $this->getComponentRepositoryMock(false);
         $updateAdvertisementService = new UpdateAdvertisementService(
             $advRepo,
+            $componentRepo,
             new AdvertisingFactory()
         );
 
@@ -53,14 +57,17 @@ class UpdateAdvertisementServiceTest extends TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function shouldGaveExceptionWHenBadRequest(): void
     {
         /** @var AdvertisementRepository $advRepo */
         $advRepo = $this->getAdvertisementRepositoryMock(false);
+        /** @var ComponentRepository $componentRepo */
+        $componentRepo = $this->getComponentRepositoryMock(false);
         $updateAdvertisementService = new UpdateAdvertisementService(
             $advRepo,
+            $componentRepo,
             new AdvertisingFactory()
         );
 
@@ -130,6 +137,25 @@ class UpdateAdvertisementServiceTest extends TestCase
         $mock->expects($this->any())
             ->method('getById')
             ->willReturn($advertisement);
+
+        return $mock;
+    }
+
+    /**
+     * @param bool $remove
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function getComponentRepositoryMock($remove = true): \PHPUnit_Framework_MockObject_MockObject
+    {
+        $mock = $this->getMockBuilder(ComponentRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        if ($remove) {
+            $mock->expects($this->once())
+                ->method('remove');
+        }
 
         return $mock;
     }

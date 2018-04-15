@@ -12,9 +12,12 @@
 namespace App\Application\Service\Manage;
 
 use App\Application\Service\BaseAdvertisementService;
+use App\Domain\Model\AdvertisingFactoryInterface;
 use App\Domain\Model\AppRequest;
 use App\Domain\Model\Component;
 use App\Domain\Model\Image;
+use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
+use App\Domain\Model\Repositories\ComponentRepositoryInterface;
 use App\Domain\Model\Text;
 use App\Domain\Model\Video;
 
@@ -24,6 +27,25 @@ use App\Domain\Model\Video;
  */
 class UpdateAdvertisementService extends BaseAdvertisementService
 {
+    /** @var ComponentRepositoryInterface  */
+    private $componentRepository;
+
+    /**
+     * UpdateAdvertisementService constructor.
+     *
+     * @param AdvertisementRepositoryInterface $advertisementRepository
+     * @param ComponentRepositoryInterface $componentRepository
+     * @param AdvertisingFactoryInterface $factory
+     */
+    public function __construct(
+        AdvertisementRepositoryInterface $advertisementRepository,
+        ComponentRepositoryInterface $componentRepository,
+        AdvertisingFactoryInterface $factory
+    ) {
+        parent::__construct($advertisementRepository, $factory);
+
+        $this->componentRepository = $componentRepository;
+    }
 
     /**
      * @inheritdoc
@@ -39,12 +61,13 @@ class UpdateAdvertisementService extends BaseAdvertisementService
 
         $advertisement->setStatus($request->status());
 
-        $nuevos = [];
+        $toCreate = [];
+        $toDelete = [];
         foreach ($request->components() as $c) {
-        {
             $finded = false;
+            $modified = false;
             /** @var Component $i */
-            foreach ($advertisement->components()->getIterator() as $i)
+            foreach ($advertisement->components()->getIterator() as $i) {
                 if (isset($c['id']) && $c['id'] === $i->id()) {
                     $finded = true;
                     //Entonces existe y hay que modificarlo
@@ -63,16 +86,36 @@ class UpdateAdvertisementService extends BaseAdvertisementService
                 }
             }
 
-            if (false === $finded) {
-                $nuevos[] = $c;
+            if (false === $finded && false == isset($c['id'])) {
+
+                $toCreate[] = $c;
             }
         }
 
-        foreach ($nuevos as $c) {
+        $elementsToDelete = [];
+        foreach ($advertisement->components()->getIterator() as $i) {
+            $finded = false;
+            foreach ($request->components() as $c) {
+                if (isset($c['id']) && $c['id'] === $i->id()) {
+                    $finded = true;
+                }
+            }
+
+            if (false === $finded) {
+                $elementsToDelete[] = $i;
+            }
+        }
+
+        foreach ($toCreate as $c) {
             $advertisement->addComponent($this->factory()->buildComponentFromArray($c));
+        }
+        foreach ($elementsToDelete as $i) {
+            $advertisement->removeComponent($i);
+            $this->componentRepository->remove($i);
         }
 
         $this->advertisementRepository()->persist($advertisement);
+
 
         return $advertisement;
     }
