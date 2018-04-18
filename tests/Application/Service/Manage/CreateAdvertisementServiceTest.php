@@ -65,7 +65,7 @@ class CreateAdvertisementServiceTest extends TestCase
         return [
             [
                 'uno' => [
-                    'status' => 10,
+                    'status' => 0,
                     'components' => [
                         [
                             'weight' => 3,

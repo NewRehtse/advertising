@@ -9,7 +9,7 @@ use App\Domain\Model\AppId;
 use PHPUnit\Framework\TestCase;
 use Tests\App\MockedClasses\ComponentNotAdded;
 use Tests\App\MockedClasses\PersistentCollection;
-use \PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @author Esther Ibáñez González <eibanez@ces.vocento.com>

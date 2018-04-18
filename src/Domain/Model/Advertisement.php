@@ -13,6 +13,7 @@ class Advertisement
     public const ADV_STATUS_PUBLISHED = 0;
     public const ADV_STATUS_STOPPED = 1;
     public const ADV_STATUS_PUBLISHING = 2;
+    public const ADV_VALID_STATUS = [self::ADV_STATUS_STOPPED, self::ADV_STATUS_PUBLISHING, self::ADV_STATUS_PUBLISHED];
 
     /** @var AppId */
     private $id;
@@ -30,7 +31,8 @@ class Advertisement
      * @param array $components
      * @param int   $status
      *
-     * @throws \App\Domain\Model\Exceptions\InvalidComponentException
+     * @throws InvalidComponentException
+     * @throws InvalidStatusException
      */
     public function __construct(AppId $id, $components, $status = self::ADV_STATUS_PUBLISHED)
     {
@@ -45,6 +47,10 @@ class Advertisement
             $this->addComponent($component);
         }
         $this->id = $id;
+
+        if (false === $this->isValidStatus($status)) {
+            throw new InvalidStatusException('status must be published, publishing or stopped');
+        }
         $this->status = $status;
     }
 
@@ -138,6 +144,6 @@ class Advertisement
      */
     private function isValidStatus($status): bool
     {
-        return \in_array($status, [self::ADV_STATUS_STOPPED, self::ADV_STATUS_PUBLISHING, self::ADV_STATUS_PUBLISHED], true);
+        return \in_array($status, self::ADV_VALID_STATUS, true);
     }
 }

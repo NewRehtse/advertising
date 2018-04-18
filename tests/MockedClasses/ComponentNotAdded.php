@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\App\MockedClasses;
 
 use App\Domain\Model\Component;

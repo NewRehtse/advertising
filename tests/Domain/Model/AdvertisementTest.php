@@ -153,6 +153,24 @@ class AdvertisementTest extends TestCase
     }
 
     /**
+     * @test
+     *
+     * @expectedException \App\Domain\Model\Exceptions\InvalidStatusException
+     */
+    public function shouldNotLetCreateAdvertisementWithInvalidStatus(): void
+    {
+        /** @var Component $validComponent */
+        $validComponent = $this->getImageComponentMock(true);
+        /** @var AppId $id */
+        $id = $this->createMock(AppId::class);
+
+        /** @var Component[] $components */
+        $components = [$validComponent, $validComponent];
+
+        new Advertisement($id, $components, 42);
+    }
+
+    /**
      * @param bool $valid
      *
      * @return MockObject
