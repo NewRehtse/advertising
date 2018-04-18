@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Tests\App\MockedClasses\PersistentCollection;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Application\Service\Manage\UpdateAdvertisementService
  */

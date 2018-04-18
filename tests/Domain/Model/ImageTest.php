@@ -8,7 +8,7 @@ use App\Domain\Model\AppId;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Domain\Model\Image
  */

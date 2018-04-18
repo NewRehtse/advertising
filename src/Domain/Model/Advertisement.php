@@ -6,7 +6,7 @@ use App\Domain\Model\Exceptions\InvalidComponentException;
 use App\Domain\Model\Exceptions\InvalidStatusException;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class Advertisement
 {

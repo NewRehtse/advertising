@@ -11,7 +11,7 @@ use App\Domain\Model\Text;
 use App\Domain\Model\Video;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class AdvertisingFactory implements AdvertisingFactoryInterface
 {

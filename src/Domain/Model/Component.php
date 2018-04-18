@@ -3,7 +3,7 @@
 namespace App\Domain\Model;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 abstract class Component implements ValidateInterface
 {

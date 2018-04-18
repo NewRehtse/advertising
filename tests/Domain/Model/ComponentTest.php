@@ -9,7 +9,7 @@ use App\Domain\Model\Position;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Domain\Model\Component
  */

@@ -8,7 +8,7 @@ use App\Domain\Model\Exceptions\ElementNotFound;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 interface ComponentRepositoryInterface
 {

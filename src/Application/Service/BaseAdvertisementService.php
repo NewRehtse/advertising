@@ -9,7 +9,7 @@ use App\Domain\Model\Exceptions\ElementNotFound;
 use App\Domain\Model\Repositories\AdvertisementRepositoryInterface;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 abstract class BaseAdvertisementService implements AppService
 {

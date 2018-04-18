@@ -7,7 +7,7 @@ use App\Domain\Model\AppRequest;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Application\Service\Query\ViewListOfAdvertisementRequest
  */

@@ -3,7 +3,7 @@
 namespace App\Domain\Model\Repositories;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 interface TextComponentRepositoryInterface
 {

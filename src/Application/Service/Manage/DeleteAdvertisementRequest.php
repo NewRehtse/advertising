@@ -5,7 +5,7 @@ namespace App\Application\Service\Manage;
 use App\Domain\Model\AppRequest;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class DeleteAdvertisementRequest implements AppRequest
 {
