@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Application\Service\Query\ViewListOfAdvertisementService
  */

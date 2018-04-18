@@ -6,7 +6,7 @@ use Assert\Assertion;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class AppId
 {

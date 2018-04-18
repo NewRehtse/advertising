@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 abstract class BaseController
 {

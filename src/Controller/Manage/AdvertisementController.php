@@ -14,7 +14,7 @@ use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class AdvertisementController extends BaseController
 {

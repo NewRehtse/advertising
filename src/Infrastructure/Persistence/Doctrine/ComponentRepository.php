@@ -12,7 +12,7 @@ use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class ComponentRepository extends ServiceEntityRepository implements ComponentRepositoryInterface
 {

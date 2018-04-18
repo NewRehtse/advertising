@@ -6,7 +6,7 @@ use App\Application\Service\BaseAdvertisementService;
 use App\Domain\Model\AppRequest;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class ViewDetailOfAdvertisementService extends BaseAdvertisementService
 {

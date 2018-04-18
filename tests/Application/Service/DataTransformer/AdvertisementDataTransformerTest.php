@@ -12,7 +12,7 @@ use Tests\App\MockedClasses\PersistentCollection;
 use \PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Application\Service\DataTransformer\AdvertisementDataTransformer
  */

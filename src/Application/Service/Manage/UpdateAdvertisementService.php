@@ -14,7 +14,7 @@ use App\Domain\Model\Video;
 use Doctrine\ORM\PersistentCollection;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class UpdateAdvertisementService extends BaseAdvertisementService
 {

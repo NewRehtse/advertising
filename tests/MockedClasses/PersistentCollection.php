@@ -3,7 +3,7 @@
 namespace Tests\App\MockedClasses;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  */
 class PersistentCollection
 {

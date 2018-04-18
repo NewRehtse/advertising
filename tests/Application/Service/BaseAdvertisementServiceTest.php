@@ -9,7 +9,7 @@ use App\Infrastructure\Persistence\Doctrine\AdvertisementRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @author Esther Ibáñez González <eibanez@ces.vocento.com>
+ * @author NewRehtse
  *
  * @covers \App\Application\Service\BaseAdvertisementService
  */
